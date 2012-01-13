@@ -28,15 +28,17 @@ import static de.n.cube.language.solution.SolveState.*;
  *
  * @author niles
  */
-public class F2lSolution {
-    private Cube cube;
-    private static Logger log = Logger.getLogger(F2lSolution.class.getName());
-    private List<Moves> moves = new ArrayList<Moves>();
+class F2lSolution {
+    private static final Logger log = Logger.getLogger(F2lSolution.class.getName());
+    private final List<Moves> moves = new ArrayList<Moves>();
     boolean solved;
 
     public F2lSolution(Cube cube) {
-        this.cube = cube;
-        this.cube.resetCounts();
+        solve(cube);
+    }
+
+    private void solve(Cube cube) {
+        cube.resetCounts();
         log.info("start solving \n" + cube.getCubeState());
 
         Moves step;
@@ -52,7 +54,6 @@ public class F2lSolution {
             log.severe("can't solve cube\n" + cube.getCubeState() + "\n so far: " + concatenated);
             this.solved = false;
         }
-
     }
 
     private Moves solveStep(Cube cube) {
@@ -85,6 +86,4 @@ public class F2lSolution {
         log.severe("can't solve to state " + solveState.name());
         return null;
     }
-
-
 }

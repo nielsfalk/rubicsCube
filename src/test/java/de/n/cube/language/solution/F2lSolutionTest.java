@@ -27,9 +27,6 @@ import static org.junit.Assert.assertThat;
  * @author niles
  */
 public class F2lSolutionTest {
-    private F2lSolution solution;
-
-
     @Test
     public void solve() {
         assertThat(new F2lSolution(new Cube()).solved, is(true));

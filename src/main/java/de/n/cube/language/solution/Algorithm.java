@@ -57,8 +57,8 @@ public enum Algorithm {
         }
     };
 
-    Moves moves;
-    SolveState solveStateToReach;
+    final Moves moves;
+    final SolveState solveStateToReach;
 
     Algorithm(SolveState solveStateToReach, Moves moves) {
         this.solveStateToReach = solveStateToReach;
