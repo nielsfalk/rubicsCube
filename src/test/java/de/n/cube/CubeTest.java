@@ -136,7 +136,7 @@ public class CubeTest {
             + "654\n"//
             + "yyy\n"//
             + "yyy\n";
-    private static final String WATCHABLE_FOR_SPIN_RIGHT_CUBESTATE = "ww3\n"//
+    private static final String WATCHABLE_FOR_SPIN_RIGHT_CUBE_STATE = "ww3\n"//
             + "ww2\n"//
             + "ww1\n"//
             + "ooc1234rrbbb\n"//
@@ -364,7 +364,7 @@ public class CubeTest {
 
     @Test
     public void spinRightFace() throws Exception {
-        testSpin(WATCHABLE_FOR_SPIN_RIGHT_CUBESTATE, Face.right, RIGHT_CLOCKWISE_CUBE_STATE);
+        testSpin(WATCHABLE_FOR_SPIN_RIGHT_CUBE_STATE, Face.right, RIGHT_CLOCKWISE_CUBE_STATE);
     }
 
     @Test
@@ -429,20 +429,20 @@ public class CubeTest {
     }
 
 
-    private void testSpin(String watchableCubestate, Face faceToSpin, String expectedStateAfterClockwiseSpin) {
-        fakeCubeState(watchableCubestate);
+    private void testSpin(String watchableCubeState, Face faceToSpin, String expectedStateAfterClockwiseSpin) {
+        fakeCubeState(watchableCubeState);
         assertThat(cube.isSolved(), is(false));
         cube.move(spin(faceToSpin, clockwise));
-        assertCubeSpinnedUnsolved(expectedStateAfterClockwiseSpin, 1);
+        assertCubeSpinedUnsolved(expectedStateAfterClockwiseSpin, 1);
 
         cube.move(spin(faceToSpin, anticlockwise));
-        assertCubeSpinnedUnsolved(watchableCubestate, 2);
+        assertCubeSpinedUnsolved(watchableCubeState, 2);
 
         cube.move(spin(faceToSpin, clockwise), spin(faceToSpin, clockwise), spin(faceToSpin, twoTimes));
-        assertCubeSpinnedUnsolved(watchableCubestate, 5);
+        assertCubeSpinedUnsolved(watchableCubeState, 5);
     }
 
-    private void assertCubeSpinnedUnsolved(String expected, int spinCount) {
+    private void assertCubeSpinedUnsolved(String expected, int spinCount) {
         assertCubeState(expected, 0, spinCount, false);
     }
 
@@ -450,18 +450,18 @@ public class CubeTest {
         assertCubeState(expected, expectedTurnCount, 0, true);
     }
 
-    private void assertCubeState(String expected, int expectedTurnCount, int expectedSpincount, boolean solved) {
+    private void assertCubeState(String expected, int expectedTurnCount, int expectedSpinCount, boolean solved) {
         if (!expected.equals(cube.cubeState)) {
             if (faked == null) {
                 System.out.println("initial:\n" + INITIAL_CUBE_STATE);
             } else {
                 System.out.println("faked:\n" + faked);
             }
-            System.out.println("\n\nexpected:\n" + expected);
-            System.out.println("\n\ngot:\n" + cube.cubeState);
+            System.out.println("\n\n" + "expected:\n" + expected);
+            System.out.println("\n\n" + "got:\n" + cube.cubeState);
         }
         assertThat(cube.turnCount, is(expectedTurnCount));
-        assertThat(cube.spinCount, is(expectedSpincount));
+        assertThat(cube.spinCount, is(expectedSpinCount));
         assertThat(cube.isSolved(), is(solved));
         assertThat(cube.cubeState, is(expected));
     }
