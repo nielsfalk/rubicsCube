@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import static de.n.cube.language.solution.SolveState.*;
+
 /**
  * User: niles
  * Date: 13.01.12
@@ -44,7 +46,7 @@ public class F2lSolution {
         }
         Moves concatenated = Moves.concatenate(this.moves.toArray(new Moves[this.moves.size()]));
         if (cube.isSolved()) {
-            log.info("solved *G " + concatenated);
+            log.info("solve *G " + concatenated);
             this.solved = true;
         } else {
             log.severe("can't solve cube\n" + cube.getCubeState() + "\n so far: " + concatenated);
@@ -54,49 +56,35 @@ public class F2lSolution {
     }
 
     private Moves solveStep(Cube cube) {
-        if (SolveState.orientationLastLayer.isReached(cube)) {
+        if (orientationLastLayer.isReached(cube)) {
             return null;
         }
-        if (SolveState.layer2.isReached(cube)) {
+        if (layer2.isReached(cube)) {
             return null;
         }
-        if (SolveState.cross.isReached(cube)) {
+        if (cross.isReached(cube)) {
             return null;
         }
-        if (SolveState.orientationWhiteMiddle.isReached(cube)) {
-            return null;
+        if (orientationWhiteMiddle.isReached(cube)) {
+            return solve(cross, cube);
         }
+        return solve(orientationWhiteMiddle, cube);
+    }
 
-        return new OrientationWhiteMiddle(cube).getSolution();
+    private Moves solve(SolveState solveState, Cube cube) {
+        List<Algorithm> algorithms = Algorithm.forSolveState(solveState);
+        for (Algorithm algorithm : algorithms) {
+            if (algorithm.isApplyHelpFull(cube)) {
+                algorithm.moves.apply(cube);
+                if (solveState.isReached(cube)) {
+                    log.info(solveState.name() + " done");
+                }
+                return algorithm.moves;
+            }
+        }
+        log.severe("can't solve to state " + solveState.name());
+        return null;
     }
 
 
-    private class OrientationWhiteMiddle extends AbstractSolver {
-        public OrientationWhiteMiddle(Cube cube) {
-            super(cube, SolveState.orientationWhiteMiddle);
-        }
-
-
-        @Override
-        public Moves getSolution() {
-            Moves t2t2 = Moves.moves("white was up", "t2t2");
-            t2t2.apply(cube);
-            if (SolveState.orientationWhiteMiddle.isReached(cube)) {
-                log.info(SolveState.orientationWhiteMiddle + " done");
-                return t2t2;
-            } else return null;
-        }
-    }
-
-    private abstract class AbstractSolver {
-        Cube cube;
-        SolveState orientationWhiteMiddle;
-
-        public AbstractSolver(Cube cube, SolveState orientationWhiteMiddle) {
-            this.cube = cube;
-            this.orientationWhiteMiddle = orientationWhiteMiddle;
-        }
-
-        public abstract Moves getSolution();
-    }
 }

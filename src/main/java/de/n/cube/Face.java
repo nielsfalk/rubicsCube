@@ -137,7 +137,7 @@ public enum Face {
         return true;
     }
 
-    static char middlePointColor(String faceState) {
+    public static char middlePointColor(String faceState) {
         return StringUtils.split(faceState, '\n')[1].charAt(1);
     }
 

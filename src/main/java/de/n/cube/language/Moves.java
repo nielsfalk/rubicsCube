@@ -111,6 +111,10 @@ public class Moves {
         return result;
     }
 
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
     public static class Move {
 
         final char face;
