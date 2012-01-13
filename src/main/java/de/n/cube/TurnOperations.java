@@ -32,7 +32,7 @@ public enum TurnOperations {
             }
             for (int i = 0; i < 3; i++) {
                 result += cubeStateLines[6 + i].substring(0, 3);//y
-                result += cubeStateLines[3 + i].substring(3, 6);//g //TODO strange flip on Back
+                result += cubeStateLines[3 + i].substring(3, 6);//g
                 result += cubeStateLines[i];//w
                 result += cubeStateLines[3 + i].substring(9, 12);//b
                 result += '\n';
