@@ -76,7 +76,7 @@ public class Moves {
 
     @Override
     public String toString() {
-        String result = desc +':';
+        String result = desc + ':';
         for (Move move : moves) {
             result += move;
         }
@@ -174,10 +174,14 @@ public class Moves {
 
         private char getOppositDirection(char direction) {
             switch (direction) {
-                case '2': return '8';
-                case '8': return '2';
-                case '4': return '6';
-                case '6': return '4';
+                case '2':
+                    return '8';
+                case '8':
+                    return '2';
+                case '4':
+                    return '6';
+                case '6':
+                    return '4';
             }
             return 0;
         }

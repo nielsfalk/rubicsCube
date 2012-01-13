@@ -3,19 +3,35 @@ package de.n.cube;
 import org.junit.Before;
 import org.junit.Test;
 
-import static de.n.cube.Face.*;
 import static de.n.cube.Cube.INITIAL_CUBE_STATE;
-import static de.n.cube.SpinOperations.*;
-import static de.n.cube.SpinOperations.anticlockwise;
-import static de.n.cube.SpinOperations.clockwise;
-import static de.n.cube.TurnOperations.*;
-import static de.n.cube.TurnOperations.up;
+import static de.n.cube.Face.*;
 import static de.n.cube.Move.spin;
 import static de.n.cube.Move.turn;
+import static de.n.cube.SpinOperations.*;
+import static de.n.cube.TurnOperations.down;
+import static de.n.cube.TurnOperations.up;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 
+/**
+ * User: niles
+ * Date: 13.01.12
+ * Time: 01:38
+ * <p/>
+ * Copyright (C) 2011 Niels Falk
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * @author niles
+ */
 public class CubeTest {
 
 
@@ -129,7 +145,7 @@ public class CubeTest {
             + "yy9\n"//
             + "yy8\n"//
             + "yy7\n";
-    private static final String RIGHT_CLOCKWISE_CUBE_STATE ="wwc\n"//
+    private static final String RIGHT_CLOCKWISE_CUBE_STATE = "wwc\n"//
             + "wwb\n"//
             + "wwa\n"//
             + "oo97411rrbbb\n"//
@@ -190,7 +206,6 @@ public class CubeTest {
     public void setup() {
         cube = new Cube();
     }
-
 
 
     @Test
@@ -265,7 +280,7 @@ public class CubeTest {
                 + "147\n", 1, 0, false);
         cube.move(turn(TurnOperations.right));
         assertCubeState(TURN_SPECIAL_STATE, 2, 0, false);
-        cube.move(turn(TurnOperations.left),turn(TurnOperations.left),turn(TurnOperations.left),turn(TurnOperations.left));
+        cube.move(turn(TurnOperations.left), turn(TurnOperations.left), turn(TurnOperations.left), turn(TurnOperations.left));
         assertCubeState(TURN_SPECIAL_STATE, 6, 0, false);
     }
 
@@ -295,7 +310,7 @@ public class CubeTest {
         cube.move(turn(down));
 
         assertCubeState(specialState, 2, 0, false);
-        cube.move(turn(down),turn(down),turn(down),turn(down));
+        cube.move(turn(down), turn(down), turn(down), turn(down));
 
         assertCubeState(specialState, 6, 0, false);
     }
@@ -326,7 +341,7 @@ public class CubeTest {
         cube.move(turn(down));
 
         assertCubeState(specialState, 2, 0, false);
-        cube.move(turn(down),turn(down),turn(down),turn(down));
+        cube.move(turn(down), turn(down), turn(down), turn(down));
 
         assertCubeState(specialState, 6, 0, false);
     }
@@ -335,7 +350,6 @@ public class CubeTest {
     public void spinTopface() throws Exception {
         testSpin(WATCHABLE_FOR_SPINTOP_CUBESTATE, top, TOP_CLOCKWISE_CUBE_STATE);
     }
-
 
 
     @Test
@@ -371,8 +385,8 @@ public class CubeTest {
         cube.move(spin(Face.left, clockwise), spin(Face.right, anticlockwise));
         cube.move(spin(Face.left, clockwise), spin(Face.right, anticlockwise));
 
-        cube.move(spin(Face.top,clockwise),spin(Face.button,anticlockwise));
-        cube.move(spin(Face.top,clockwise),spin(Face.button,anticlockwise));
+        cube.move(spin(Face.top, clockwise), spin(Face.button, anticlockwise));
+        cube.move(spin(Face.top, clockwise), spin(Face.button, anticlockwise));
         assertThat(cube.cubeState, is("wyw\n" +
                 "ywy\n" +
                 "wyw\n" +
@@ -384,7 +398,7 @@ public class CubeTest {
                 "ywy\n"));
     }
 
-     @Test
+    @Test
     public void faceTest() throws Exception {
         String testFaceState = "123\n456\n789\n";
         assertThat(Face.middlePointColor(testFaceState), is('5'));
@@ -415,9 +429,6 @@ public class CubeTest {
     }
 
 
-
-
-
     private void testSpin(String watchableCubestate, Face faceToSpin, String expectedStateAfterClockwiseSpin) {
         fakeCubeState(watchableCubestate);
         assertThat(cube.isSolved(), is(false));
@@ -441,9 +452,9 @@ public class CubeTest {
 
     private void assertCubeState(String expected, int expectedTurnCount, int expectedSpincount, boolean solved) {
         if (!expected.equals(cube.cubeState)) {
-            if (faked==null){
+            if (faked == null) {
                 System.out.println("initial:\n" + INITIAL_CUBE_STATE);
-            }else{
+            } else {
                 System.out.println("faked:\n" + faked);
             }
             System.out.println("\n\nexpected:\n" + expected);

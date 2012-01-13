@@ -124,6 +124,7 @@ public class SolveStateTest {
                 + "www\n";
         assertReached(matchingState, SolveState.orientationLastLayer);
     }
+
     @Test
     public void layer3() {
         String matchingState = "yyy\n"//
@@ -149,7 +150,7 @@ public class SolveStateTest {
 
         boolean reached = solveState.isReached(faked);
         if (!reached) {
-            System.out.println("expected:\n"+solveState.expectation);
+            System.out.println("expected:\n" + solveState.expectation);
             System.out.println("\n\ngot:\n" + CubeStateUtil.maskState(faked.getCubeState(), solveState.mask));
         }
         assertThat(reached, is(true));

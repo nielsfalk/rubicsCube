@@ -3,24 +3,24 @@ package de.n.cube;
 import org.apache.commons.lang.StringUtils;
 
 /**
-* User: niles
-* Date: 13.01.12
-* Time: 01:39
-* <p/>
-* Copyright (C) 2011 Niels Falk
-* <p/>
-* This program is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* any later version.
-* <p/>
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* @author niles
-*/
+ * User: niles
+ * Date: 13.01.12
+ * Time: 01:39
+ * <p/>
+ * Copyright (C) 2011 Niels Falk
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ * <p/>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * @author niles
+ */
 public enum TurnOperations {
     up {
         @Override
@@ -95,12 +95,16 @@ public enum TurnOperations {
     protected abstract void turn(Cube cube);
 
     public static TurnOperations forLang(char direction) {
-        switch (direction){
-            case '2': return up;
-            case '8': return down;
-            case '4': return left;
-            case '6': return right;
+        switch (direction) {
+            case '2':
+                return up;
+            case '8':
+                return down;
+            case '4':
+                return left;
+            case '6':
+                return right;
         }
-        throw new IllegalArgumentException("direction "+direction+" is strange");
+        throw new IllegalArgumentException("direction " + direction + " is strange");
     }
 }

@@ -137,19 +137,14 @@ public class MovesTest {
     }
 
 
-
-
     @Test
-    public void undo(){
+    public void undo() {
         Moves moves = randomMoves(3000);
         moves.apply(cube);
-        assertThat(cube.isSolved(),is(false));
+        assertThat(cube.isSolved(), is(false));
         moves.undo().apply(cube);
         assertThat(cube.isSolved(), is(true));
     }
-
-
-
 
 
     private void testPattern(Moves moves, String expectedCubeState, int expectedSpinCount, int expectedTurnCount) {
@@ -185,13 +180,13 @@ public class MovesTest {
 
 
     private Moves randomMoves(int moveCount) {
-        String random="";
-        for(int i=0;i< moveCount;i++){
-           random += randomChar(Moves.FACE_CHARS);
-           random += randomChar(Moves.DIRECTION_CHARS);
-           if (new Random(3).nextInt()==1){
-                random += "t"+randomChar(Moves.TURN_DIRECTION_CHARS);
-           }
+        String random = "";
+        for (int i = 0; i < moveCount; i++) {
+            random += randomChar(Moves.FACE_CHARS);
+            random += randomChar(Moves.DIRECTION_CHARS);
+            if (new Random(3).nextInt() == 1) {
+                random += "t" + randomChar(Moves.TURN_DIRECTION_CHARS);
+            }
         }
         return Moves.moves("total random", random);
     }

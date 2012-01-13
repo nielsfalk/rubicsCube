@@ -21,13 +21,13 @@ package de.n.cube;
  */
 public class CubeStateUtil {
     public static String maskState(String cubeState, String mask) {
-        if (cubeState.length()!= mask.length()){
+        if (cubeState.length() != mask.length()) {
             throw new IllegalArgumentException();
         }
-        String result ="";
-        for(int i=0;i<cubeState.length();i++){
+        String result = "";
+        for (int i = 0; i < cubeState.length(); i++) {
             char maskChar = mask.charAt(i);
-            if (maskChar =='?'){
+            if (maskChar == '?') {
                 result += cubeState.charAt(i);
                 continue;
             }
