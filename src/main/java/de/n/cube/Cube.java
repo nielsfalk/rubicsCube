@@ -83,4 +83,8 @@ public class Cube {
         return true;
     }
 
+    public void resetCounts() {
+        spinCount = 0;
+        turnCount = 0;
+    }
 }

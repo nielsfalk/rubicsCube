@@ -147,6 +147,14 @@ public class MovesTest {
         randomMoves(1);
     }
 
+    @Test
+    public void concatenate() {
+        Moves concatenate = Moves.concatenate(Moves.moves("to combine1", "f2"), Moves.moves("to combine2", "t2"));
+        assertThat(concatenate.toString(), is("combined(to combine1,to combine2):F2T2"));
+
+
+    }
+
 
     private void testPattern(Moves moves, String expectedCubeState, int expectedSpinCount, int expectedTurnCount) {
         assertThat(cube.getSpinCount(), is(0));

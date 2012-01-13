@@ -100,6 +100,17 @@ public class Moves {
         return moves("undo " + desc, result);
     }
 
+    public static Moves concatenate(Moves... parts) {
+        Moves result = new Moves("combined(");
+        for (Moves part : parts) {
+            result.desc += part.desc + ",";
+            result.moves.addAll(part.moves);
+        }
+        result.desc = result.desc.substring(0, result.desc.length() - 1);
+        result.desc += ")";
+        return result;
+    }
+
     public static class Move {
 
         final char face;
