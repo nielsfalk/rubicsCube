@@ -24,9 +24,9 @@ public class Cube {
     public static final String INITIAL_CUBE_STATE = "www\n"//
             + "www\n"//
             + "www\n"//
-            + "ooogggrrrbbb\n"//
-            + "ooogggrrrbbb\n"//
-            + "ooogggrrrbbb\n"//
+            + "ooo" + "ggg" + "rrr" + "bbb\n"//
+            + "ooo" + "ggg" + "rrr" + "bbb\n"//
+            + "ooo" + "ggg" + "rrr" + "bbb\n"//
             + "yyy\n"//
             + "yyy\n"//
             + "yyy\n";

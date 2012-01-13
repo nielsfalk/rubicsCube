@@ -31,11 +31,11 @@ public enum Face {
             String lineToSpin = orgCubeState.substring(12, 24);
             int shiftPositions = ((spinOperation.ordinal() + 1) * 3) % 24;
 
-            String spinnedLine = lineToSpin.substring(shiftPositions);
-            spinnedLine += lineToSpin.substring(0, shiftPositions);
+            String spinedLine = lineToSpin.substring(shiftPositions);
+            spinedLine += lineToSpin.substring(0, shiftPositions);
 
 
-            cube.cubeState += spinnedLine;
+            cube.cubeState += spinedLine;
             cube.cubeState += orgCubeState.substring(24);
         }
     }, //
@@ -106,11 +106,11 @@ public enum Face {
             String lineToSpin = orgCubeState.substring(38, 50);
             int shiftPositions = ((SpinOperations.values().length - spinOperation.ordinal()) * 3);
 
-            String spinnedLine = lineToSpin.substring(shiftPositions);
-            spinnedLine += lineToSpin.substring(0, shiftPositions);
+            String spinedLine = lineToSpin.substring(shiftPositions);
+            spinedLine += lineToSpin.substring(0, shiftPositions);
 
 
-            cube.cubeState += spinnedLine;
+            cube.cubeState += spinedLine;
             cube.cubeState += orgCubeState.substring(50);
         }
     };

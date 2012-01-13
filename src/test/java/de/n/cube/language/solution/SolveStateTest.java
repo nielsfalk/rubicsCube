@@ -44,9 +44,9 @@ public class SolveStateTest {
         String matchingState = "www\n"//
                 + "www\n"//
                 + "www\n"//
-                + "ooogggrrrbbb\n"//
-                + "ooogggrrrbbb\n"//
-                + "ooogggrrrbbb\n"//
+                + "ooo" + "ggg" + "rrr" + "bbb\n"//
+                + "ooo" + "ggg" + "rrr" + "bbb\n"//
+                + "ooo" + "ggg" + "rrr" + "bbb\n"//
                 + "yyy\n"//
                 + "ywy\n"//
                 + "yyy\n";
@@ -59,9 +59,9 @@ public class SolveStateTest {
         String matchingState = "www\n"//
                 + "www\n"//
                 + "www\n"//
-                + "ooogggrrrbbb\n"//
-                + "ooogggrrrbbb\n"//
-                + "orogggrorbbb\n"//
+                + "ooo" + "ggg" + "rrr" + "bbb\n"//
+                + "ooo" + "ggg" + "rrr" + "bbb\n"//
+                + "oro" + "ggg" + "ror" + "bbb\n"//
                 + "ywy\n"//
                 + "www\n"//
                 + "ywy\n";
@@ -74,9 +74,9 @@ public class SolveStateTest {
         String matchingState = "www\n"//
                 + "www\n"//
                 + "www\n"//
-                + "ooogggrrrbbb\n"//
-                + "ooogggrrrbbb\n"//
-                + "rrrgggooobbb\n"//
+                + "ooo" + "ggg" + "rrr" + "bbb\n"//
+                + "ooo" + "ggg" + "rrr" + "bbb\n"//
+                + "rrr" + "ggg" + "ooo" + "bbb\n"//
                 + "www\n"//
                 + "www\n"//
                 + "www\n";
@@ -88,9 +88,9 @@ public class SolveStateTest {
         String matchingState = "www\n"//
                 + "www\n"//
                 + "www\n"//
-                + "ooogggrrrbbb\n"//
-                + "rrrgggooobbb\n"//
-                + "rrrgggooobbb\n"//
+                + "ooo" + "ggg" + "rrr" + "bbb\n"//
+                + "rrr" + "ggg" + "ooo" + "bbb\n"//
+                + "rrr" + "ggg" + "ooo" + "bbb\n"//
                 + "www\n"//
                 + "www\n"//
                 + "www\n";
@@ -102,9 +102,9 @@ public class SolveStateTest {
         String matchingState = "wyw\n"//
                 + "yyy\n"//
                 + "wyw\n"//
-                + "orogggrorbbb\n"//
-                + "rrrgggooobbb\n"//
-                + "rrrgggooobbb\n"//
+                + "oro" + "ggg" + "ror" + "bbb\n"//
+                + "rrr" + "ggg" + "ooo" + "bbb\n"//
+                + "rrr" + "ggg" + "ooo" + "bbb\n"//
                 + "www\n"//
                 + "www\n"//
                 + "www\n";
@@ -116,9 +116,9 @@ public class SolveStateTest {
         String matchingState = "yyy\n"//
                 + "yyy\n"//
                 + "yyy\n"//
-                + "öööööööööööö\n"//
-                + "rrrgggooobbb\n"//
-                + "rrrgggooobbb\n"//
+                + "ööö" + "ööö" + "ööö" + "ööö\n"//
+                + "rrr" + "ggg" + "ooo" + "bbb\n"//
+                + "rrr" + "ggg" + "ooo" + "bbb\n"//
                 + "www\n"//
                 + "www\n"//
                 + "www\n";
@@ -130,9 +130,9 @@ public class SolveStateTest {
         String matchingState = "yyy\n"//
                 + "yyy\n"//
                 + "yyy\n"//
-                + "rrrgggooobbb\n"//
-                + "rrrgggooobbb\n"//
-                + "rrrgggooobbb\n"//
+                + "rrr" + "ggg" + "ooo" + "bbb\n"//
+                + "rrr" + "ggg" + "ooo" + "bbb\n"//
+                + "rrr" + "ggg" + "ooo" + "bbb\n"//
                 + "www\n"//
                 + "www\n"//
                 + "www\n";
@@ -151,7 +151,7 @@ public class SolveStateTest {
         boolean reached = solveState.isReached(faked);
         if (!reached) {
             System.out.println("expected:\n" + solveState.expectation);
-            System.out.println("\n\ngot:\n" + CubeStateUtil.maskState(faked.getCubeState(), solveState.mask));
+            System.out.println("\n\n" + "got:\n" + CubeStateUtil.maskState(faked.getCubeState(), solveState.mask));
         }
         assertThat(reached, is(true));
 

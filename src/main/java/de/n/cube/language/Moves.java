@@ -10,32 +10,28 @@ import java.util.List;
 
 public class Moves {
 
-    static final char[] FACE_CHARS = "UFRBLD".toCharArray();
+    static final char[] FACE_CHARS = ("UFR" + "BLD").toCharArray();
     static final char[] DIRECTION_CHARS = "-2+".toCharArray();
-    static final char[] SEPERATOR_CHARS = " ,".toCharArray();
+    private static final char[] SEPARATOR_CHARS = " ,".toCharArray();
     static final char[] TURN_DIRECTION_CHARS = "2468".toCharArray();
     String desc = "";
-    List<Move> moves = new ArrayList<Move>();
+    final List<Move> moves = new ArrayList<Move>();
 
     private Moves(String desc) {
         this.desc = desc;
-    }
-
-    public static Moves moves(String cube20String) {
-        return moves("", cube20String);
     }
 
     public static Moves moves(String desc, String cube20String) {
         cube20String = cube20String.toUpperCase();
         Moves result = new Moves(desc);
         //cutDesc
-        int descSeperatorIndex = cube20String.indexOf(":");
-        if (descSeperatorIndex != -1) {
-            cube20String = cube20String.substring(descSeperatorIndex + 1);
+        int descSeparatorIndex = cube20String.indexOf(":");
+        if (descSeparatorIndex != -1) {
+            cube20String = cube20String.substring(descSeparatorIndex + 1);
         }
         while (!cube20String.isEmpty()) {
             Character face = cube20String.charAt(0);
-            if (charInArray(face, SEPERATOR_CHARS)) {
+            if (charInArray(face, SEPARATOR_CHARS)) {
                 cube20String = cube20String.substring(1);
                 continue;
             }
@@ -54,10 +50,10 @@ public class Moves {
             }
             cube20String = cube20String.substring(1);
             if (!cube20String.isEmpty()) {
-                Character potentionDirection = cube20String.charAt(0);
-                if (charInArray(potentionDirection, DIRECTION_CHARS)) {
+                Character potentialDirection = cube20String.charAt(0);
+                if (charInArray(potentialDirection, DIRECTION_CHARS)) {
                     cube20String = cube20String.substring(1);
-                    direction = potentionDirection;
+                    direction = potentialDirection;
                 }
             }
             result.moves.add(new Move(face, direction));
@@ -104,17 +100,10 @@ public class Moves {
         return moves("undo " + desc, result);
     }
 
-    /**
-     * Created by IntelliJ IDEA.
-     * User: nielsfalk
-     * Date: 12.01.12
-     * Time: 14:13
-     * To change this template use File | Settings | File Templates.
-     */
     public static class Move {
 
-        private char face;
-        char direction;
+        final char face;
+        final char direction;
 
 
         Move(char face, char direction) {
@@ -136,10 +125,10 @@ public class Moves {
         }
 
         public Move undo() {
-            return new Move(face, getOppositDirection(direction));
+            return new Move(face, getOppositeDirection(direction));
         }
 
-        private char getOppositDirection(char direction) {
+        private char getOppositeDirection(char direction) {
             switch (direction) {
                 case '+':
                     return '-';
@@ -169,10 +158,10 @@ public class Moves {
 
         @Override
         public Move undo() {
-            return new Turn(getOppositDirection(direction));
+            return new Turn(getOppositeDirection(direction));
         }
 
-        private char getOppositDirection(char direction) {
+        private char getOppositeDirection(char direction) {
             switch (direction) {
                 case '2':
                     return '8';

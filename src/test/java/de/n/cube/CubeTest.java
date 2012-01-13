@@ -37,37 +37,37 @@ public class CubeTest {
 
     private Cube cube;
 
-    private static final String TURNED_UP_CUBESTATE = "ooo\n"//
+    private static final String TURNED_UP_CUBE_STATE = "ooo\n"//
             + "ooo\n"//
             + "ooo\n"//
-            + "yyygggwwwbbb\n"//
-            + "yyygggwwwbbb\n"//
-            + "yyygggwwwbbb\n"//
+            + "yyy" + "ggg" + "www" + "bbb\n"//
+            + "yyy" + "ggg" + "www" + "bbb\n"//
+            + "yyy" + "ggg" + "www" + "bbb\n"//
             + "rrr\n"//
             + "rrr\n"//
             + "rrr\n";
 
-    private static final String TURNED_DOWN_CUBESTATE = "rrr\n"//
+    private static final String TURNED_DOWN_CUBE_STATE = "rrr\n"//
             + "rrr\n"//
             + "rrr\n"//
-            + "wwwgggyyybbb\n"//
-            + "wwwgggyyybbb\n"//
-            + "wwwgggyyybbb\n"//
+            + "www" + "ggg" + "yyy" + "bbb\n"//
+            + "www" + "ggg" + "yyy" + "bbb\n"//
+            + "www" + "ggg" + "yyy" + "bbb\n"//
             + "ooo\n"//
             + "ooo\n"//
             + "ooo\n";
 
-    private static final String TURNED_LEFT_CUBESTATE = "www\n"//
+    private static final String TURNED_LEFT_CUBE_STATE = "www\n"//
             + "www\n"//
             + "www\n"//
-            + "gggrrrbbbooo\n"//
-            + "gggrrrbbbooo\n"//
-            + "gggrrrbbbooo\n"//
+            + "ggg" + "rrr" + "bbb" + "ooo\n"//
+            + "ggg" + "rrr" + "bbb" + "ooo\n"//
+            + "ggg" + "rrr" + "bbb" + "ooo\n"//
             + "yyy\n"//
             + "yyy\n"//
             + "yyy\n";
 
-    private static final String TURNED_RIGHT_CUBESTATE = "www\n"//
+    private static final String TURNED_RIGHT_CUBE_STATE = "www\n"//
             + "www\n"//
             + "www\n"//
             + "bbbooogggrrr\n"//
@@ -77,7 +77,7 @@ public class CubeTest {
             + "yyy\n"//
             + "yyy\n";
 
-    private static final String WATCHABLE_FOR_SPINTOP_CUBESTATE = "123\n"//
+    private static final String WATCHABLE_FOR_SPIN_TOP_CUBE_STATE = "123\n"//
             + "456\n"//
             + "789\n"//
             + "123456789abc\n"//
@@ -97,7 +97,7 @@ public class CubeTest {
             + "yyy\n"//
             + "yyy\n";
 
-    private static final String WATCHABLE_FOR_SPINBUTTON_CUBESTATE = "www\n"//
+    private static final String WATCHABLE_FOR_SPIN_BUTTON_CUBE_STATE = "www\n"//
             + "www\n"//
             + "www\n"//
             + "ooogggrrrbbb\n"//
@@ -117,7 +117,7 @@ public class CubeTest {
             + "852\n"//
             + "963\n";
 
-    private static final String WATCHABLE_FOR_SPINFRONT_CUBESTATE = "www\n"//
+    private static final String WATCHABLE_FOR_SPIN_FRONT_CUBE_STATE = "www\n"//
             + "www\n"//
             + "123\n"//
             + "1234ggrrrbbc\n"//
@@ -136,7 +136,7 @@ public class CubeTest {
             + "654\n"//
             + "yyy\n"//
             + "yyy\n";
-    private static final String WATCHABLE_FOR_SPINRIGHT_CUBESTATE = "ww3\n"//
+    private static final String WATCHABLE_FOR_SPIN_RIGHT_CUBESTATE = "ww3\n"//
             + "ww2\n"//
             + "ww1\n"//
             + "ooc1234rrbbb\n"//
@@ -155,7 +155,7 @@ public class CubeTest {
             + "yy5\n"//
             + "yy4\n";
 
-    static final String TURN_SPECIAL_STATE = "123\n"//
+    private static final String TURN_SPECIAL_STATE = "123\n"//
             + "456\n"//
             + "789\n"//
             + "123gggrrrbbb\n"//
@@ -165,7 +165,7 @@ public class CubeTest {
             + "456\n"//
             + "789\n";
     private String faked;
-    private static final String WATCHABLE_FOR_SPINBACK_CUBESTATE = "321\n"//
+    private static final String WATCHABLE_FOR_SPIN_BACK_CUBE_STATE = "321\n"//
             + "www\n"//
             + "www\n"//
             + "oooggc1234bb\n"//
@@ -183,7 +183,7 @@ public class CubeTest {
             "yyy\n" +
             "yyy\n" +
             "456\n";
-    private static final String WATCHABLE_FOR_SPINLEFT_CUBESTATE = "1ww\n"//
+    private static final String WATCHABLE_FOR_SPIN_LEFT_CUBE_STATE = "1ww\n"//
             + "2ww\n"//
             + "3ww\n"//
             + "4oogggrrc123\n"//
@@ -212,69 +212,69 @@ public class CubeTest {
     public void turnUp() throws Exception {
         cube.move(turn(up));
 
-        assertCubeStateSolved(TURNED_UP_CUBESTATE, 1);
+        assertCubeStateSolved(TURNED_UP_CUBE_STATE, 1);
     }
 
 
     @Test
-    public void turnup3x() throws Exception {
+    public void turnUp3x() throws Exception {
         cube.move(turn(up), turn(up), turn(up));
 
-        assertCubeStateSolved(TURNED_DOWN_CUBESTATE, 3);
+        assertCubeStateSolved(TURNED_DOWN_CUBE_STATE, 3);
     }
 
     @Test
-    public void turndown() throws Exception {
+    public void turnDown() throws Exception {
         cube.move(turn(down));
-        assertCubeStateSolved(TURNED_DOWN_CUBESTATE, 1);
+        assertCubeStateSolved(TURNED_DOWN_CUBE_STATE, 1);
     }
 
     @Test
-    public void turnupdown() throws Exception {
+    public void turnUpDown() throws Exception {
         cube.move(turn(down), turn(up));
 
         assertCubeStateSolved(INITIAL_CUBE_STATE, 2);
     }
 
     @Test
-    public void turnleft() throws Exception {
+    public void turnLeft() throws Exception {
         cube.move(turn(TurnOperations.left));
 
-        assertCubeStateSolved(TURNED_LEFT_CUBESTATE, 1);
+        assertCubeStateSolved(TURNED_LEFT_CUBE_STATE, 1);
     }
 
     @Test
-    public void turnleft3x() throws Exception {
+    public void turnLeft3x() throws Exception {
         cube.move(turn(TurnOperations.left), turn(TurnOperations.left), turn(TurnOperations.left));
 
-        assertCubeStateSolved(TURNED_RIGHT_CUBESTATE, 3);
+        assertCubeStateSolved(TURNED_RIGHT_CUBE_STATE, 3);
     }
 
     @Test
-    public void turnright() throws Exception {
+    public void turnRight() throws Exception {
         cube.move(turn(TurnOperations.right));
 
-        assertCubeStateSolved(TURNED_RIGHT_CUBESTATE, 1);
+        assertCubeStateSolved(TURNED_RIGHT_CUBE_STATE, 1);
     }
 
     @Test
-    public void turnrightleft() throws Exception {
+    public void turnRightLeft() throws Exception {
         cube.move(turn(TurnOperations.right), turn(TurnOperations.left));
 
         assertCubeStateSolved(INITIAL_CUBE_STATE, 2);
     }
 
     @Test
-    public void turnSpecialhorizontal() throws Exception {
+    public void turnSpecialHorizontal() throws Exception {
         fakeCubeState(TURN_SPECIAL_STATE);
 
         cube.move(turn(TurnOperations.left));
         assertCubeState("741\n"//
                 + "852\n"//
                 + "963\n"//
-                + "gggrrrbbb123\n"//
-                + "gggrrrbbb456\n"//
-                + "gggrrrbbb789\n"//
+                + "ggg" + "rrr" + "bbb" + "123\n"//
+                + "ggg" + "rrr" + "bbb" + "456\n"//
+                + "ggg" + "rrr" + "bbb" + "789\n"//
                 + "369\n"//
                 + "258\n"//
                 + "147\n", 1, 0, false);
@@ -285,13 +285,13 @@ public class CubeTest {
     }
 
     @Test
-    public void turnSpecialvertical() throws Exception {
+    public void turnSpecialVertical() throws Exception {
         String specialState = "123\n"//
                 + "456\n"//
                 + "789\n"//
-                + "oooggg123bbb\n"//
-                + "oooggg456bbb\n"//
-                + "oooggg789bbb\n"//
+                + "ooo" + "ggg123bbb\n"//
+                + "ooo" + "ggg456bbb\n"//
+                + "ooo" + "ggg789bbb\n"//
                 + "123\n"//
                 + "456\n"//
                 + "789\n";
@@ -316,7 +316,7 @@ public class CubeTest {
     }
 
     @Test
-    public void turnSpecialvertical2() throws Exception {
+    public void turnSpecialVertical2() throws Exception {
         String specialState = "www\n"//
                 + "www\n"//
                 + "www\n"//
@@ -347,34 +347,34 @@ public class CubeTest {
     }
 
     @Test
-    public void spinTopface() throws Exception {
-        testSpin(WATCHABLE_FOR_SPINTOP_CUBESTATE, top, TOP_CLOCKWISE_CUBE_STATE);
+    public void spinTopFace() throws Exception {
+        testSpin(WATCHABLE_FOR_SPIN_TOP_CUBE_STATE, top, TOP_CLOCKWISE_CUBE_STATE);
     }
 
 
     @Test
-    public void spinButtonface() throws Exception {
-        testSpin(WATCHABLE_FOR_SPINBUTTON_CUBESTATE, button, BUTTON_CLOCKWISE_CUBE_STATE);
+    public void spinButtonFace() throws Exception {
+        testSpin(WATCHABLE_FOR_SPIN_BUTTON_CUBE_STATE, button, BUTTON_CLOCKWISE_CUBE_STATE);
     }
 
     @Test
-    public void spinFrontface() throws Exception {
-        testSpin(WATCHABLE_FOR_SPINFRONT_CUBESTATE, front, FRONT_CLOCKWISE_CUBE_STATE);
+    public void spinFrontFace() throws Exception {
+        testSpin(WATCHABLE_FOR_SPIN_FRONT_CUBE_STATE, front, FRONT_CLOCKWISE_CUBE_STATE);
     }
 
     @Test
-    public void spinRightface() throws Exception {
-        testSpin(WATCHABLE_FOR_SPINRIGHT_CUBESTATE, Face.right, RIGHT_CLOCKWISE_CUBE_STATE);
+    public void spinRightFace() throws Exception {
+        testSpin(WATCHABLE_FOR_SPIN_RIGHT_CUBESTATE, Face.right, RIGHT_CLOCKWISE_CUBE_STATE);
     }
 
     @Test
-    public void spinBackface() throws Exception {
-        testSpin(WATCHABLE_FOR_SPINBACK_CUBESTATE, back, BACK_CLOCKWISE_CUBE_STATE);
+    public void spinBackFace() throws Exception {
+        testSpin(WATCHABLE_FOR_SPIN_BACK_CUBE_STATE, back, BACK_CLOCKWISE_CUBE_STATE);
     }
 
     @Test
-    public void spinLeftface() throws Exception {
-        testSpin(WATCHABLE_FOR_SPINLEFT_CUBESTATE, Face.left, LEFT_CLOCKWISE_CUBE_STATE);
+    public void spinLeftFace() throws Exception {
+        testSpin(WATCHABLE_FOR_SPIN_LEFT_CUBE_STATE, Face.left, LEFT_CLOCKWISE_CUBE_STATE);
     }
 
     @Test

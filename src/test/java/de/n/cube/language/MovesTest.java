@@ -34,7 +34,7 @@ import static org.junit.Assert.fail;
  * @author niles
  */
 public class MovesTest {
-    public static final Moves SUPER_FLIP = Moves.moves("RLU2FU-DF2R2B2LU2F-B-UR2DF2UR2U");
+    public static final Moves SUPER_FLIP = Moves.moves("", "RLU2FU-DF2R2B2LU2F-B-UR2DF2UR2U");
     private Cube cube;
 
     @Before
@@ -107,9 +107,9 @@ public class MovesTest {
         testPattern(moves, "wyw\n" +
                 "ywy\n" +
                 "wyw\n" +
-                "orogbgrorbgb\n" +
-                "rorbgborogbg\n" +
-                "orogbgrorbgb\n" +
+                "oro" + "gbg" + "ror" + "bgb\n" +
+                "ror" + "bgb" + "oro" + "gbg\n" +
+                "oro" + "gbg" + "ror" + "bgb\n" +
                 "ywy\n" +
                 "wyw\n" +
                 "ywy\n", 6, 0);
@@ -117,22 +117,22 @@ public class MovesTest {
     }
 
     @Test
-    public void patterMiddlePointsSpinned() {
+    public void patterMiddlePointsSpined() {
         testPattern(Moves.moves("pattern", "l-rt8u-dt4lr-t2"), "www\n" +
                 "wgw\n" +
                 "www\n" +
-                "ooogggrrrbbb\n" +
-                "gogryrbrbowo\n" +
-                "ooogggrrrbbb\n" +
+                "ooo" + "ggg" + "rrr" + "bbb\n" +
+                "gog" + "ryr" + "brb" + "owo\n" +
+                "ooo" + "ggg" + "rrr" + "bbb\n" +
                 "yyy\n" +
                 "yby\n" +
-                "yyy\n", 6, 3);
+                "yyy\n", 5 + 1, 3);
     }
 
-    private void testTwoTimesAppliedIsSolved(Moves movesEqalsUndoMoves) {
+    private void testTwoTimesAppliedIsSolved(Moves movesEqualsUndoMoves) {
         assertThat(cube.isSolved(), is(true));
-        movesEqalsUndoMoves.apply(cube);
-        movesEqalsUndoMoves.apply(cube);
+        movesEqualsUndoMoves.apply(cube);
+        movesEqualsUndoMoves.apply(cube);
         assertThat(cube.isSolved(), is(true));
     }
 
@@ -144,6 +144,7 @@ public class MovesTest {
         assertThat(cube.isSolved(), is(false));
         moves.undo().apply(cube);
         assertThat(cube.isSolved(), is(true));
+        randomMoves(1);
     }
 
 
@@ -161,21 +162,6 @@ public class MovesTest {
         assertThat(cube.isSolved(), is(false));
         moves.undo().apply(cube);
         assertThat(cube.isSolved(), is(true));
-    }
-
-
-    private void assertPattern(Moves moves, String expectedState) {
-        assertThat(cube.getCubeState(), is(expectedState));
-        moves.undo().apply(cube);
-        assertThat(cube.isSolved(), is(true));
-    }
-
-    private void assertPatternApplied(Moves pattern) {
-        Cube cube2 = new Cube();
-        pattern.apply(cube2);
-        assertThat(cube.getCubeState(), is(cube2.getCubeState()));
-        System.out.println(cube.getCubeState());
-
     }
 
 
