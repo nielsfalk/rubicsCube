@@ -1,6 +1,7 @@
 package de.n.cube.language.solution;
 
 import de.n.cube.Cube;
+import de.n.cube.CubeStateUtil;
 import de.n.cube.Face;
 import de.n.cube.language.Moves;
 
@@ -32,8 +33,12 @@ public enum Algorithm {
     whiteIsUp(orientationWhiteMiddle, Moves.moves("", "t2t2")) {
         @Override
         public boolean isApplyHelpFull(Cube cube) {
-            String faceState = Face.top.faceState(cube.getCubeState());
-            return Face.middlePointColor(faceState) == 'w';
+            return CubeStateUtil.getFaceMiddleColor(cube, Face.top);
+        }
+    }, whiteIsFront(orientationWhiteMiddle, Moves.moves("", "t8")) {
+        @Override
+        public boolean isApplyHelpFull(Cube cube) {
+            return CubeStateUtil.getFaceMiddleColor(cube, Face.front);
         }
     };
 

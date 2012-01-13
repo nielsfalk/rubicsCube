@@ -34,7 +34,7 @@ import static org.junit.Assert.fail;
  * @author niles
  */
 public class MovesTest {
-    public static final Moves SUPER_FLIP = Moves.moves("", "RLU2FU-DF2R2B2LU2F-B-UR2DF2UR2U");
+    public static final Moves SUPER_FLIP = Moves.moves("superFlip", "RLU2FU-DF2R2B2LU2F-B-UR2DF2UR2U");
     private Cube cube;
 
     @Before

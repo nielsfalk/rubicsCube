@@ -35,4 +35,9 @@ public class CubeStateUtil {
         }
         return result;
     }
+
+    public static boolean getFaceMiddleColor(Cube cube, Face face) {
+        String faceState = face.faceState(cube.getCubeState());
+        return Face.middlePointColor(faceState) == 'w';
+    }
 }
