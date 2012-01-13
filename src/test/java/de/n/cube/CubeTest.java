@@ -70,9 +70,9 @@ public class CubeTest {
     private static final String TURNED_RIGHT_CUBE_STATE = "www\n"//
             + "www\n"//
             + "www\n"//
-            + "bbbooogggrrr\n"//
-            + "bbbooogggrrr\n"//
-            + "bbbooogggrrr\n"//
+            + "bbb" + "ooo" + "ggg" + "rrr\n"//
+            + "bbb" + "ooo" + "ggg" + "rrr\n"//
+            + "bbb" + "ooo" + "ggg" + "rrr\n"//
             + "yyy\n"//
             + "yyy\n"//
             + "yyy\n";
@@ -80,9 +80,9 @@ public class CubeTest {
     private static final String WATCHABLE_FOR_SPIN_TOP_CUBE_STATE = "123\n"//
             + "456\n"//
             + "789\n"//
-            + "123456789abc\n"//
-            + "ooogggrrrbbb\n"//
-            + "ooogggrrrbbb\n"//
+            + "123" + "456" + "789" + "abc\n"//
+            + "ooo" + "ggg" + "rrr" + "bbb\n"//
+            + "ooo" + "ggg" + "rrr" + "bbb\n"//
             + "yyy\n"//
             + "yyy\n"//
             + "yyy\n";
@@ -90,9 +90,9 @@ public class CubeTest {
     private static final String TOP_CLOCKWISE_CUBE_STATE = "741\n"//
             + "852\n"//
             + "963\n"//
-            + "456789abc123\n"//
-            + "ooogggrrrbbb\n"//
-            + "ooogggrrrbbb\n"//
+            + "456" + "789" + "abc" + "123\n"//
+            + "ooo" + "ggg" + "rrr" + "bbb\n"//
+            + "ooo" + "ggg" + "rrr" + "bbb\n"//
             + "yyy\n"//
             + "yyy\n"//
             + "yyy\n";
@@ -100,9 +100,9 @@ public class CubeTest {
     private static final String WATCHABLE_FOR_SPIN_BUTTON_CUBE_STATE = "www\n"//
             + "www\n"//
             + "www\n"//
-            + "ooogggrrrbbb\n"//
-            + "ooogggrrrbbb\n"//
-            + "123456789abc\n"//
+            + "ooo" + "ggg" + "rrr" + "bbb\n"//
+            + "ooo" + "ggg" + "rrr" + "bbb\n"//
+            + "123" + "456" + "789" + "abc\n"//
             + "123\n"//
             + "456\n"//
             + "789\n";
@@ -110,9 +110,9 @@ public class CubeTest {
     private static final String BUTTON_CLOCKWISE_CUBE_STATE = "www\n"//
             + "www\n"//
             + "www\n"//
-            + "ooogggrrrbbb\n"//
-            + "ooogggrrrbbb\n"//
-            + "abc123456789\n"//
+            + "ooo" + "ggg" + "rrr" + "bbb\n"//
+            + "ooo" + "ggg" + "rrr" + "bbb\n"//
+            + "abc" + "123" + "456" + "789\n"//
             + "741\n"//
             + "852\n"//
             + "963\n";
@@ -120,9 +120,9 @@ public class CubeTest {
     private static final String WATCHABLE_FOR_SPIN_FRONT_CUBE_STATE = "www\n"//
             + "www\n"//
             + "123\n"//
-            + "1234ggrrrbbc\n"//
-            + "4565ggrrrbbb\n"//
-            + "7896ggrrrbba\n"//
+            + "123" + "4gg" + "rrr" + "bbc\n"//
+            + "456" + "5gg" + "rrr" + "bbb\n"//
+            + "789" + "6gg" + "rrr" + "bba\n"//
             + "987\n"//
             + "yyy\n"//
             + "yyy\n";
@@ -130,27 +130,27 @@ public class CubeTest {
     private static final String FRONT_CLOCKWISE_CUBE_STATE = "www\n"//
             + "www\n"//
             + "abc\n"//
-            + "7411ggrrrbb9\n"//
-            + "8522ggrrrbb8\n"//
-            + "9633ggrrrbb7\n"//
+            + "741" + "1gg" + "rrr" + "bb9\n"//
+            + "852" + "2gg" + "rrr" + "bb8\n"//
+            + "963" + "3gg" + "rrr" + "bb7\n"//
             + "654\n"//
             + "yyy\n"//
             + "yyy\n";
     private static final String WATCHABLE_FOR_SPIN_RIGHT_CUBE_STATE = "ww3\n"//
             + "ww2\n"//
             + "ww1\n"//
-            + "ooc1234rrbbb\n"//
-            + "oob4565rrbbb\n"//
-            + "ooa7896rrbbb\n"//
+            + "ooc1234rr" + "bbb\n"//
+            + "oob4565rr" + "bbb\n"//
+            + "ooa7896rr" + "bbb\n"//
             + "yy9\n"//
             + "yy8\n"//
             + "yy7\n";
     private static final String RIGHT_CLOCKWISE_CUBE_STATE = "wwc\n"//
             + "wwb\n"//
             + "wwa\n"//
-            + "oo97411rrbbb\n"//
-            + "oo88522rrbbb\n"//
-            + "oo79633rrbbb\n"//
+            + "oo97411rr" + "bbb\n"//
+            + "oo88522rr" + "bbb\n"//
+            + "oo79633rr" + "bbb\n"//
             + "yy6\n"//
             + "yy5\n"//
             + "yy4\n";
@@ -158,9 +158,9 @@ public class CubeTest {
     private static final String TURN_SPECIAL_STATE = "123\n"//
             + "456\n"//
             + "789\n"//
-            + "123gggrrrbbb\n"//
-            + "456gggrrrbbb\n"//
-            + "789gggrrrbbb\n"//
+            + "123" + "ggg" + "rrr" + "bbb\n"//
+            + "456" + "ggg" + "rrr" + "bbb\n"//
+            + "789" + "ggg" + "rrr" + "bbb\n"//
             + "123\n"//
             + "456\n"//
             + "789\n";
@@ -168,36 +168,36 @@ public class CubeTest {
     private static final String WATCHABLE_FOR_SPIN_BACK_CUBE_STATE = "321\n"//
             + "www\n"//
             + "www\n"//
-            + "oooggc1234bb\n"//
-            + "oooggb4565bb\n"//
-            + "ooogga7896bb\n"//
+            + "ooo" + "ggc" + "123" + "4bb\n"//
+            + "ooo" + "ggb" + "456" + "5bb\n"//
+            + "ooo" + "gga" + "789" + "6bb\n"//
             + "yyy\n"//
             + "yyy\n"//
             + "789\n";
     private static final String BACK_CLOCKWISE_CUBE_STATE = "cba\n" +
             "www\n" +
             "www\n" +
-            "ooogg97411bb\n" +
-            "ooogg88522bb\n" +
-            "ooogg79633bb\n" +
+            "ooo" + "gg97411bb\n" +
+            "ooo" + "gg88522bb\n" +
+            "ooo" + "gg79633bb\n" +
             "yyy\n" +
             "yyy\n" +
             "456\n";
     private static final String WATCHABLE_FOR_SPIN_LEFT_CUBE_STATE = "1ww\n"//
             + "2ww\n"//
             + "3ww\n"//
-            + "4oogggrrc123\n"//
-            + "5oogggrrb456\n"//
-            + "6oogggrra789\n"//
+            + "4oo" + "ggg" + "rrc" + "123\n"//
+            + "5oo" + "ggg" + "rrb" + "456\n"//
+            + "6oo" + "ggg" + "rra" + "789\n"//
             + "7yy\n"//
             + "8yy\n"//
             + "9yy\n";
     private static final String LEFT_CLOCKWISE_CUBE_STATE = "aww\n" +
             "bww\n" +
             "cww\n" +
-            "1oogggrr9741\n" +
-            "2oogggrr8852\n" +
-            "3oogggrr7963\n" +
+            "1oo" + "ggg" + "rr9" + "741\n" +
+            "2oo" + "ggg" + "rr8" + "852\n" +
+            "3oo" + "ggg" + "rr7" + "963\n" +
             "4yy\n" +
             "5yy\n" +
             "6yy\n";
@@ -390,9 +390,9 @@ public class CubeTest {
         assertThat(cube.cubeState, is("wyw\n" +
                 "ywy\n" +
                 "wyw\n" +
-                "bgborogbgror\n" +
-                "gbgrorbgboro\n" +
-                "bgborogbgror\n" +
+                "bgb" + "oro" + "gbg" + "ror\n" +
+                "gbg" + "ror" + "bgb" + "oro\n" +
+                "bgb" + "oro" + "gbg" + "ror\n" +
                 "ywy\n" +
                 "wyw\n" +
                 "ywy\n"));
