@@ -1,13 +1,13 @@
 package de.n.cube.language.solution;
 
 import de.n.cube.Cube;
-import de.n.cube.CubeStateUtil;
 import de.n.cube.Face;
 import de.n.cube.language.Moves;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static de.n.cube.CubeStateUtil.isFaceMiddleColorWhite;
 import static de.n.cube.language.solution.SolveState.orientationWhiteMiddle;
 
 /**
@@ -33,12 +33,27 @@ public enum Algorithm {
     whiteIsUp(orientationWhiteMiddle, Moves.moves("", "t2t2")) {
         @Override
         public boolean isApplyHelpFull(Cube cube) {
-            return CubeStateUtil.getFaceMiddleColor(cube, Face.top);
+            return isFaceMiddleColorWhite(cube, Face.top);
         }
     }, whiteIsFront(orientationWhiteMiddle, Moves.moves("", "t8")) {
         @Override
         public boolean isApplyHelpFull(Cube cube) {
-            return CubeStateUtil.getFaceMiddleColor(cube, Face.front);
+            return isFaceMiddleColorWhite(cube, Face.front);
+        }
+    }, whiteIsRight(orientationWhiteMiddle, Moves.moves("", "t4t8")) {
+        @Override
+        public boolean isApplyHelpFull(Cube cube) {
+            return isFaceMiddleColorWhite(cube, Face.right);
+        }
+    }, whiteIsBack(orientationWhiteMiddle, Moves.moves("", "t2")) {
+        @Override
+        public boolean isApplyHelpFull(Cube cube) {
+            return isFaceMiddleColorWhite(cube, Face.back);
+        }
+    }, whiteIsLeft(orientationWhiteMiddle, Moves.moves("", "t6t8")) {
+        @Override
+        public boolean isApplyHelpFull(Cube cube) {
+            return isFaceMiddleColorWhite(cube, Face.left);
         }
     };
 

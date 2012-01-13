@@ -6,7 +6,9 @@ import de.n.cube.language.MovesTest;
 import org.junit.Test;
 
 import static de.n.cube.language.Moves.moves;
+import static de.n.cube.language.solution.Algorithm.forSolveState;
 import static de.n.cube.language.solution.Algorithm.whiteIsUp;
+import static de.n.cube.language.solution.SolveState.orientationWhiteMiddle;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -35,15 +37,41 @@ public class AlgorithmTest {
     @Test
     public void whiteIsUp() {
         Cube cube = MovesTest.SUPER_FLIP.apply(new Cube());
-
         testIt(cube, whiteIsUp);
     }
 
     @Test
     public void whiteIsFront() {
-        Cube cube = movedSuperFlip('8');
-        System.out.println(cube.getCubeState());
+        Cube cube = movedSuperFlip("t8");
         testIt(cube, Algorithm.whiteIsFront);
+    }
+
+    @Test
+    public void whiteIsRight() {
+        Cube cube = movedSuperFlip("t8t6");
+        testIt(cube, Algorithm.whiteIsRight);
+    }
+
+    @Test
+    public void whiteIsBack() {
+        Cube cube = movedSuperFlip("t8t6t6");
+        testIt(cube, Algorithm.whiteIsBack);
+    }
+
+    @Test
+    public void whiteIsLeft() {
+        Cube cube = movedSuperFlip("t8t4");
+        testIt(cube, Algorithm.whiteIsLeft);
+    }
+
+    @Test
+    public void noAlgorithmHelpFull() {
+        Cube cube = movedSuperFlip("t2t2");
+        assertThat(orientationWhiteMiddle.isReached(cube), is(true));
+        for (Algorithm algorithm : forSolveState(orientationWhiteMiddle)) {
+            assertThat(algorithm.isApplyHelpFull(cube), is(false));
+        }
+
     }
 
     @Test
@@ -59,8 +87,8 @@ public class AlgorithmTest {
         assertThat(algorithm.solveStateToReach.isReached(cube), is(true));
     }
 
-    private Cube movedSuperFlip(char c) {
-        return Moves.concatenate(MovesTest.SUPER_FLIP, moves("turn up", "t" + c)).apply(new Cube());
+    private Cube movedSuperFlip(String turns) {
+        return Moves.concatenate(MovesTest.SUPER_FLIP, moves("turn up", turns)).apply(new Cube());
     }
 
 }
