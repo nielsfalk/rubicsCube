@@ -3,6 +3,7 @@ package de.n.cube.language.solution;
 import de.n.cube.Cube;
 import de.n.cube.language.Moves;
 import de.n.cube.language.MovesTest;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static de.n.cube.language.Moves.moves;
@@ -32,7 +33,11 @@ import static org.junit.Assert.assertThat;
  * @author niles
  */
 public class AlgorithmTest {
-
+    @Test
+    public void whiteIsNotUp() {
+        Cube superFlip = moves("turn", "t2t2").apply(new Cube());
+        assertThat(whiteIsUp.isApplyHelpFull(superFlip), is(false));
+    }
 
     @Test
     public void whiteIsUp() {
@@ -66,20 +71,21 @@ public class AlgorithmTest {
 
     @Test
     public void noAlgorithmHelpFull() {
-        Cube cube = movedSuperFlip("t2t2");
-        assertThat(orientationWhiteMiddle.isReached(cube), is(true));
+        Cube orientationWhiteMiddleCube = orientationWhiteMiddleCube();
         for (Algorithm algorithm : forSolveState(orientationWhiteMiddle)) {
-            assertThat(algorithm.isApplyHelpFull(cube), is(false));
+            assertThat(algorithm.isApplyHelpFull(orientationWhiteMiddleCube), is(false));
         }
-
     }
 
     @Test
-    public void whiteIsNotUp() {
-        Cube superFlip = Moves.concatenate(MovesTest.SUPER_FLIP, moves("turn", "t2")).apply(new Cube());
-        assertThat(whiteIsUp.isApplyHelpFull(superFlip), is(false));
+    @Ignore("not finished")
+    public void spinFirstLayer() {
+        Cube orientationWhiteMiddleCube = orientationWhiteMiddleCube();
+        System.out.println(orientationWhiteMiddleCube.getCubeState());
+        Algorithm algorithm = Algorithm.spinFirstLayer;
+        assertThat(algorithm.isApplyHelpFull(orientationWhiteMiddleCube), is(true));
+        algorithm.moves.apply(orientationWhiteMiddleCube);
     }
-
 
     private void testIt(Cube cube, Algorithm algorithm) {
         assertThat(algorithm.isApplyHelpFull(cube), is(true));
@@ -89,6 +95,12 @@ public class AlgorithmTest {
 
     private Cube movedSuperFlip(String turns) {
         return Moves.concatenate(MovesTest.SUPER_FLIP, moves("turn up", turns)).apply(new Cube());
+    }
+
+    private Cube orientationWhiteMiddleCube() {
+        Cube orientationWhiteMiddleCube = Moves.moves("turned", "t2t2lfr").apply(new Cube());
+        assertThat(orientationWhiteMiddle.isReached(orientationWhiteMiddleCube), is(true));
+        return orientationWhiteMiddleCube;
     }
 
 }

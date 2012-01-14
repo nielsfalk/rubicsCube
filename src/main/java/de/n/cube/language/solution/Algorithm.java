@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static de.n.cube.CubeStateUtil.isFaceMiddleColorWhite;
+import static de.n.cube.language.solution.SolveState.cross;
 import static de.n.cube.language.solution.SolveState.orientationWhiteMiddle;
 
 /**
@@ -54,6 +55,12 @@ public enum Algorithm {
         @Override
         public boolean isApplyHelpFull(Cube cube) {
             return isFaceMiddleColorWhite(cube, Face.left);
+        }
+    }, spinFirstLayer(cross, Moves.moves("", "")) {
+        @Override
+        public boolean isApplyHelpFull(Cube cube) {
+
+            return false;
         }
     };
 
