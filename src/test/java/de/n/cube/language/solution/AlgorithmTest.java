@@ -17,7 +17,7 @@ import static org.junit.Assert.assertThat;
  * Date: 13.01.12
  * Time: 21:43
  * <p/>
- * Copyright (C) 2011 Niels Falk
+ * Copyright (C) 2012 Niels Falk
  * <p/>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
