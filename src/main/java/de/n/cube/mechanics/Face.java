@@ -1,4 +1,4 @@
-package de.n.cube;
+package de.n.cube.mechanics;
 
 import org.apache.commons.lang.StringUtils;
 

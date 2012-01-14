@@ -1,13 +1,13 @@
-package de.n.cube.language.solution;
+package de.n.cube.solution;
 
-import de.n.cube.Cube;
 import de.n.cube.language.Moves;
+import de.n.cube.mechanics.Cube;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import static de.n.cube.language.solution.SolveState.*;
+import static de.n.cube.solution.SolveState.*;
 
 /**
  * User: niles

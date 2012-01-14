@@ -1,7 +1,7 @@
-package de.n.cube.language.solution;
+package de.n.cube.solution;
 
-import de.n.cube.Cube;
-import de.n.cube.CubeStateUtil;
+import de.n.cube.mechanics.Cube;
+import de.n.cube.mechanics.CubeStateUtil;
 
 /**
  * User: niles

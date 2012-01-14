@@ -1,8 +1,8 @@
 package de.n.cube.language;
 
-import de.n.cube.Cube;
-import de.n.cube.Face;
-import de.n.cube.SpinOperations;
+import de.n.cube.mechanics.Cube;
+import de.n.cube.mechanics.Face;
+import de.n.cube.mechanics.SpinOperations;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package de.n.cube;
+package de.n.cube.mechanics;
 
 import org.junit.Test;
 
@@ -98,6 +98,23 @@ public class CubeStateUtilTest {
         assertThat(CubeStateUtil.checkStateWithVariables(new Cube().cubeState, variablesInState, 'a', 'b', 'c'), is(false));
         assertThat(CubeStateUtil.checkStateWithVariables(matchingState, variablesInState, 'a', 'b', 'c'), is(true));
         assertThat(CubeStateUtil.checkStateWithVariables(cNotMatchingState, variablesInState, 'a', 'b', 'c'), is(false));
+        CubeStateUtil.checkStateWithVariables("oyy\n" +
+                "oyr\n" +
+                "bbr\n" +
+                "yygyyobowbbr\n" +
+                "rrwgggyowbbw\n" +
+                "rrwgggyowbbw\n" +
+                "ggo\n" +
+                "rwo\n" +
+                "rwo\n", "...\n" +
+                "...\n" +
+                "...\n" +
+                "............\n" +
+                ".a..........\n" +
+                ".a..........\n" +
+                ".w.\n" +
+                ".w.\n" +
+                "...\n", 'a', 'w');
     }
 
 }

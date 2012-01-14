@@ -1,9 +1,9 @@
 package de.n.cube.language;
 
-import de.n.cube.Cube;
-import de.n.cube.Face;
-import de.n.cube.SpinOperations;
-import de.n.cube.TurnOperations;
+import de.n.cube.mechanics.Cube;
+import de.n.cube.mechanics.Face;
+import de.n.cube.mechanics.SpinOperations;
+import de.n.cube.mechanics.TurnOperations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,12 +84,12 @@ public class Moves {
         return cube;
     }
 
-    private de.n.cube.Move[] convert() {
-        List<de.n.cube.Move> result = new ArrayList<de.n.cube.Move>();
+    private de.n.cube.mechanics.Move[] convert() {
+        List<de.n.cube.mechanics.Move> result = new ArrayList<de.n.cube.mechanics.Move>();
         for (Move move : moves) {
             result.add(move.convert());
         }
-        return result.toArray(new de.n.cube.Move[result.size()]);
+        return result.toArray(new de.n.cube.mechanics.Move[result.size()]);
     }
 
     public Moves undo() {
@@ -135,8 +135,8 @@ public class Moves {
             return string;
         }
 
-        public de.n.cube.Move convert() {
-            return de.n.cube.Move.spin(Face.forLang(face), SpinOperations.forLang(direction));
+        public de.n.cube.mechanics.Move convert() {
+            return de.n.cube.mechanics.Move.spin(Face.forLang(face), SpinOperations.forLang(direction));
         }
 
         public Move undo() {
@@ -167,8 +167,8 @@ public class Moves {
         }
 
         @Override
-        public de.n.cube.Move convert() {
-            return de.n.cube.Move.turn(TurnOperations.forLang(direction));
+        public de.n.cube.mechanics.Move convert() {
+            return de.n.cube.mechanics.Move.turn(TurnOperations.forLang(direction));
         }
 
         @Override

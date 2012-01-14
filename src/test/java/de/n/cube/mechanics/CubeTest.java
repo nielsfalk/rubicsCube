@@ -1,15 +1,9 @@
-package de.n.cube;
+package de.n.cube.mechanics;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import static de.n.cube.Cube.INITIAL_CUBE_STATE;
-import static de.n.cube.Face.*;
-import static de.n.cube.Move.spin;
-import static de.n.cube.Move.turn;
-import static de.n.cube.SpinOperations.*;
-import static de.n.cube.TurnOperations.down;
-import static de.n.cube.TurnOperations.up;
+import static de.n.cube.mechanics.Cube.INITIAL_CUBE_STATE;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -210,7 +204,7 @@ public class CubeTest {
 
     @Test
     public void turnUp() throws Exception {
-        cube.move(turn(up));
+        cube.move(Move.turn(TurnOperations.up));
 
         assertCubeStateSolved(TURNED_UP_CUBE_STATE, 1);
     }
@@ -218,48 +212,48 @@ public class CubeTest {
 
     @Test
     public void turnUp3x() throws Exception {
-        cube.move(turn(up), turn(up), turn(up));
+        cube.move(Move.turn(TurnOperations.up), Move.turn(TurnOperations.up), Move.turn(TurnOperations.up));
 
         assertCubeStateSolved(TURNED_DOWN_CUBE_STATE, 3);
     }
 
     @Test
     public void turnDown() throws Exception {
-        cube.move(turn(down));
+        cube.move(Move.turn(TurnOperations.down));
         assertCubeStateSolved(TURNED_DOWN_CUBE_STATE, 1);
     }
 
     @Test
     public void turnUpDown() throws Exception {
-        cube.move(turn(down), turn(up));
+        cube.move(Move.turn(TurnOperations.down), Move.turn(TurnOperations.up));
 
         assertCubeStateSolved(INITIAL_CUBE_STATE, 2);
     }
 
     @Test
     public void turnLeft() throws Exception {
-        cube.move(turn(TurnOperations.left));
+        cube.move(Move.turn(TurnOperations.left));
 
         assertCubeStateSolved(TURNED_LEFT_CUBE_STATE, 1);
     }
 
     @Test
     public void turnLeft3x() throws Exception {
-        cube.move(turn(TurnOperations.left), turn(TurnOperations.left), turn(TurnOperations.left));
+        cube.move(Move.turn(TurnOperations.left), Move.turn(TurnOperations.left), Move.turn(TurnOperations.left));
 
         assertCubeStateSolved(TURNED_RIGHT_CUBE_STATE, 3);
     }
 
     @Test
     public void turnRight() throws Exception {
-        cube.move(turn(TurnOperations.right));
+        cube.move(Move.turn(TurnOperations.right));
 
         assertCubeStateSolved(TURNED_RIGHT_CUBE_STATE, 1);
     }
 
     @Test
     public void turnRightLeft() throws Exception {
-        cube.move(turn(TurnOperations.right), turn(TurnOperations.left));
+        cube.move(Move.turn(TurnOperations.right), Move.turn(TurnOperations.left));
 
         assertCubeStateSolved(INITIAL_CUBE_STATE, 2);
     }
@@ -268,7 +262,7 @@ public class CubeTest {
     public void turnSpecialHorizontal() throws Exception {
         fakeCubeState(TURN_SPECIAL_STATE);
 
-        cube.move(turn(TurnOperations.left));
+        cube.move(Move.turn(TurnOperations.left));
         assertCubeState("741\n"//
                 + "852\n"//
                 + "963\n"//
@@ -278,9 +272,9 @@ public class CubeTest {
                 + "369\n"//
                 + "258\n"//
                 + "147\n", 1, 0, false);
-        cube.move(turn(TurnOperations.right));
+        cube.move(Move.turn(TurnOperations.right));
         assertCubeState(TURN_SPECIAL_STATE, 2, 0, false);
-        cube.move(turn(TurnOperations.left), turn(TurnOperations.left), turn(TurnOperations.left), turn(TurnOperations.left));
+        cube.move(Move.turn(TurnOperations.left), Move.turn(TurnOperations.left), Move.turn(TurnOperations.left), Move.turn(TurnOperations.left));
         assertCubeState(TURN_SPECIAL_STATE, 6, 0, false);
     }
 
@@ -296,7 +290,7 @@ public class CubeTest {
                 + "456\n"//
                 + "789\n";
         fakeCubeState(specialState);
-        cube.move(turn(up));
+        cube.move(Move.turn(TurnOperations.up));
 
         assertCubeState("ooo\n"//
                 + "ooo\n"//
@@ -307,10 +301,10 @@ public class CubeTest {
                 + "987\n"//
                 + "654\n"//
                 + "321\n", 1, 0, false);
-        cube.move(turn(down));
+        cube.move(Move.turn(TurnOperations.down));
 
         assertCubeState(specialState, 2, 0, false);
-        cube.move(turn(down), turn(down), turn(down), turn(down));
+        cube.move(Move.turn(TurnOperations.down), Move.turn(TurnOperations.down), Move.turn(TurnOperations.down), Move.turn(TurnOperations.down));
 
         assertCubeState(specialState, 6, 0, false);
     }
@@ -327,7 +321,7 @@ public class CubeTest {
                 + "yyy\n"//
                 + "yyy\n";
         fakeCubeState(specialState);
-        cube.move(turn(up));
+        cube.move(Move.turn(TurnOperations.up));
 
         assertCubeState("ooo\n"//
                 + "ooo\n"//
@@ -338,28 +332,28 @@ public class CubeTest {
                 + "rrr\n"//
                 + "rrr\n"//
                 + "rrr\n", 1, 0, false);
-        cube.move(turn(down));
+        cube.move(Move.turn(TurnOperations.down));
 
         assertCubeState(specialState, 2, 0, false);
-        cube.move(turn(down), turn(down), turn(down), turn(down));
+        cube.move(Move.turn(TurnOperations.down), Move.turn(TurnOperations.down), Move.turn(TurnOperations.down), Move.turn(TurnOperations.down));
 
         assertCubeState(specialState, 6, 0, false);
     }
 
     @Test
     public void spinTopFace() throws Exception {
-        testSpin(WATCHABLE_FOR_SPIN_TOP_CUBE_STATE, top, TOP_CLOCKWISE_CUBE_STATE);
+        testSpin(WATCHABLE_FOR_SPIN_TOP_CUBE_STATE, Face.top, TOP_CLOCKWISE_CUBE_STATE);
     }
 
 
     @Test
     public void spinButtonFace() throws Exception {
-        testSpin(WATCHABLE_FOR_SPIN_BUTTON_CUBE_STATE, button, BUTTON_CLOCKWISE_CUBE_STATE);
+        testSpin(WATCHABLE_FOR_SPIN_BUTTON_CUBE_STATE, Face.button, BUTTON_CLOCKWISE_CUBE_STATE);
     }
 
     @Test
     public void spinFrontFace() throws Exception {
-        testSpin(WATCHABLE_FOR_SPIN_FRONT_CUBE_STATE, front, FRONT_CLOCKWISE_CUBE_STATE);
+        testSpin(WATCHABLE_FOR_SPIN_FRONT_CUBE_STATE, Face.front, FRONT_CLOCKWISE_CUBE_STATE);
     }
 
     @Test
@@ -369,7 +363,7 @@ public class CubeTest {
 
     @Test
     public void spinBackFace() throws Exception {
-        testSpin(WATCHABLE_FOR_SPIN_BACK_CUBE_STATE, back, BACK_CLOCKWISE_CUBE_STATE);
+        testSpin(WATCHABLE_FOR_SPIN_BACK_CUBE_STATE, Face.back, BACK_CLOCKWISE_CUBE_STATE);
     }
 
     @Test
@@ -379,14 +373,14 @@ public class CubeTest {
 
     @Test
     public void simplePattern() throws Exception {
-        cube.move(spin(Face.left, clockwise), spin(Face.right, anticlockwise));
-        cube.move(spin(Face.left, clockwise), spin(Face.right, anticlockwise));
-        cube.move(turn(TurnOperations.right));
-        cube.move(spin(Face.left, clockwise), spin(Face.right, anticlockwise));
-        cube.move(spin(Face.left, clockwise), spin(Face.right, anticlockwise));
+        cube.move(Move.spin(Face.left, SpinOperations.clockwise), Move.spin(Face.right, SpinOperations.anticlockwise));
+        cube.move(Move.spin(Face.left, SpinOperations.clockwise), Move.spin(Face.right, SpinOperations.anticlockwise));
+        cube.move(Move.turn(TurnOperations.right));
+        cube.move(Move.spin(Face.left, SpinOperations.clockwise), Move.spin(Face.right, SpinOperations.anticlockwise));
+        cube.move(Move.spin(Face.left, SpinOperations.clockwise), Move.spin(Face.right, SpinOperations.anticlockwise));
 
-        cube.move(spin(Face.top, clockwise), spin(Face.button, anticlockwise));
-        cube.move(spin(Face.top, clockwise), spin(Face.button, anticlockwise));
+        cube.move(Move.spin(Face.top, SpinOperations.clockwise), Move.spin(Face.button, SpinOperations.anticlockwise));
+        cube.move(Move.spin(Face.top, SpinOperations.clockwise), Move.spin(Face.button, SpinOperations.anticlockwise));
         assertThat(cube.cubeState, is("wyw\n" +
                 "ywy\n" +
                 "wyw\n" +
@@ -402,15 +396,15 @@ public class CubeTest {
     public void faceTest() throws Exception {
         String testFaceState = "123\n456\n789\n";
         assertThat(Face.middlePointColor(testFaceState), is('5'));
-        assertThat(top.faceState(testFaceState), is(testFaceState));
+        assertThat(Face.top.faceState(testFaceState), is(testFaceState));
         assertThat(Face.isSolved(testFaceState), is(false));
-        assertThat(Face.spinFace(testFaceState, clockwise), is("741\n"//
+        assertThat(Face.spinFace(testFaceState, SpinOperations.clockwise), is("741\n"//
                 + "852\n"//
                 + "963\n"));
-        assertThat(Face.spinFace(testFaceState, twoTimes), is("987\n"//
+        assertThat(Face.spinFace(testFaceState, SpinOperations.twoTimes), is("987\n"//
                 + "654\n"//
                 + "321\n"));
-        assertThat(Face.spinFace(testFaceState, anticlockwise), is("369\n"//
+        assertThat(Face.spinFace(testFaceState, SpinOperations.anticlockwise), is("369\n"//
                 + "258\n"//
                 + "147\n"));
 
@@ -432,13 +426,13 @@ public class CubeTest {
     private void testSpin(String watchableCubeState, Face faceToSpin, String expectedStateAfterClockwiseSpin) {
         fakeCubeState(watchableCubeState);
         assertThat(cube.isSolved(), is(false));
-        cube.move(spin(faceToSpin, clockwise));
+        cube.move(Move.spin(faceToSpin, SpinOperations.clockwise));
         assertCubeSpinedUnsolved(expectedStateAfterClockwiseSpin, 1);
 
-        cube.move(spin(faceToSpin, anticlockwise));
+        cube.move(Move.spin(faceToSpin, SpinOperations.anticlockwise));
         assertCubeSpinedUnsolved(watchableCubeState, 2);
 
-        cube.move(spin(faceToSpin, clockwise), spin(faceToSpin, clockwise), spin(faceToSpin, twoTimes));
+        cube.move(Move.spin(faceToSpin, SpinOperations.clockwise), Move.spin(faceToSpin, SpinOperations.clockwise), Move.spin(faceToSpin, SpinOperations.twoTimes));
         assertCubeSpinedUnsolved(watchableCubeState, 5);
     }
 

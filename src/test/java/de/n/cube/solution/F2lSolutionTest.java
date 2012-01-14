@@ -1,9 +1,16 @@
-package de.n.cube;
+package de.n.cube.solution;
+
+import de.n.cube.language.MovesTest;
+import de.n.cube.mechanics.Cube;
+import org.junit.Test;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * User: niles
  * Date: 13.01.12
- * Time: 01:39
+ * Time: 19:31
  * <p/>
  * Copyright (C) 2012 Niels Falk
  * <p/>
@@ -19,19 +26,14 @@ package de.n.cube;
  *
  * @author niles
  */
-public enum SpinOperations {
-    //ordinal matters !
-    clockwise, twoTimes, anticlockwise;
+public class F2lSolutionTest {
+    @Test
+    public void solve() {
+        assertThat(new F2lSolution(new Cube()).solved, is(true));
+    }
 
-    public static SpinOperations forLang(char direction) {
-        switch (direction) {
-            case '+':
-                return clockwise;
-            case '2':
-                return twoTimes;
-            case '-':
-                return anticlockwise;
-        }
-        throw new IllegalArgumentException("cant convert " + direction);
+    @Test
+    public void solve2() {
+        assertThat(new F2lSolution(MovesTest.SUPER_FLIP.apply(new Cube())).solved, is(false));
     }
 }

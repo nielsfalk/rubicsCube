@@ -1,4 +1,6 @@
-package de.n.cube;
+package de.n.cube.mechanics;
+
+import de.n.cube.language.Moves;
 
 /**
  * User: niles
@@ -59,4 +61,12 @@ public class CubeStateUtil {
         }
         return true;
     }
+
+    public static String movesOnPattern(String pattern, String moves) {
+        Cube cubeToMove = new Cube();
+        cubeToMove.cubeState = pattern;
+        Moves.moves("movesOnPattern", moves).apply(cubeToMove);
+        return cubeToMove.getCubeState();
+    }
+
 }

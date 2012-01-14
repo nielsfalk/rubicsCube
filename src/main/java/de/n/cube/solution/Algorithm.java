@@ -1,15 +1,17 @@
-package de.n.cube.language.solution;
+package de.n.cube.solution;
 
-import de.n.cube.Cube;
-import de.n.cube.Face;
 import de.n.cube.language.Moves;
+import de.n.cube.mechanics.Cube;
+import de.n.cube.mechanics.CubeStateUtil;
+import de.n.cube.mechanics.Face;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static de.n.cube.CubeStateUtil.isFaceMiddleColorWhite;
-import static de.n.cube.language.solution.SolveState.cross;
-import static de.n.cube.language.solution.SolveState.orientationWhiteMiddle;
+import static de.n.cube.mechanics.CubeStateUtil.*;
+import static de.n.cube.solution.SolveState.cross;
+import static de.n.cube.solution.SolveState.orientationWhiteMiddle;
 
 /**
  * User: niles
@@ -56,11 +58,28 @@ public enum Algorithm {
         public boolean isApplyHelpFull(Cube cube) {
             return isFaceMiddleColorWhite(cube, Face.left);
         }
-    }, spinFirstLayer(cross, Moves.moves("", "")) {
+    }, spinFirstLayer(cross, Moves.moves("", "d-")) {
         @Override
         public boolean isApplyHelpFull(Cube cube) {
+            String buttonState = Face.button.faceState(cube.getCubeState());
+            String maskedButtonState = CubeStateUtil.maskState(buttonState, ".?.\n" + "???\n" + ".?.\n");
+            if (StringUtils.countMatches(maskedButtonState, "w") == 1) {
+                return false;
+            }
+            String variablesInState = "...\n"//
+                    + "...\n"//
+                    + "...\n"//
+                    + "............\n"//
+                    + ".a..........\n"//
+                    + ".a..........\n"//
+                    + ".w.\n"//
+                    + ".w.\n"//
+                    + "...\n";
 
-            return false;
+            return checkStateWithVariables(cube.getCubeState(), variablesInState, 'a', 'w') ||
+                    checkStateWithVariables(cube.getCubeState(), movesOnPattern(variablesInState, "t4"), 'a', 'w') ||
+                    checkStateWithVariables(cube.getCubeState(), movesOnPattern(variablesInState, "t4t4"), 'a', 'w') ||
+                    checkStateWithVariables(cube.getCubeState(), movesOnPattern(variablesInState, "t6"), 'a', 'w');
         }
     };
 
