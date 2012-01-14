@@ -117,4 +117,45 @@ public class CubeStateUtilTest {
                 "...\n", 'a', 'w');
     }
 
+    @Test
+    public void movesOnPattern() {
+        String pattern = "...\n"//
+                + "...\n"//
+                + "...\n"//
+                + "............\n"//
+                + ".a..........\n"//
+                + ".a..........\n"//
+                + ".w.\n"//
+                + ".w.\n"//
+                + "...\n";
+        assertPatternMoved(pattern, "t4t6", pattern);
+
+        String t4Pattern = "...\n" +
+                "...\n" +
+                "...\n" +
+                "............\n" +
+                "..........a.\n" +
+                "..........a.\n" +
+                "...\n" +
+                "ww.\n" +
+                "...\n";
+        assertPatternMoved(pattern, "t4", t4Pattern);
+
+        String t4t4Pattern = "...\n" +
+                "...\n" +
+                "...\n" +
+                "............\n" +
+                ".......a....\n" +
+                ".......a....\n" +
+                "...\n" +
+                ".w.\n" +
+                ".w.\n";
+        assertPatternMoved(pattern, "t4t4", t4t4Pattern);
+
+    }
+
+    private void assertPatternMoved(String pattern, String moves, String expected) {
+        assertThat(CubeStateUtil.movesOnPattern(pattern, moves), is(expected));
+    }
+
 }

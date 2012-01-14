@@ -76,12 +76,16 @@ public enum Algorithm {
                     + ".w.\n"//
                     + "...\n";
 
-            return checkStateWithVariables(cube.getCubeState(), variablesInState, 'a', 'w') ||
-                    checkStateWithVariables(cube.getCubeState(), movesOnPattern(variablesInState, "t4"), 'a', 'w') ||
-                    checkStateWithVariables(cube.getCubeState(), movesOnPattern(variablesInState, "t4t4"), 'a', 'w') ||
-                    checkStateWithVariables(cube.getCubeState(), movesOnPattern(variablesInState, "t6"), 'a', 'w');
+            return nothingSolvedOnCrossYet(cube, variablesInState);
         }
     };
+
+    private static boolean nothingSolvedOnCrossYet(Cube cube, String variablesInState) {
+        return !checkStateWithVariables(cube.getCubeState(), variablesInState, 'a', 'w') &&
+                !checkStateWithVariables(cube.getCubeState(), movesOnPattern(variablesInState, "t4"), 'a', 'w') &&
+                !checkStateWithVariables(cube.getCubeState(), movesOnPattern(variablesInState, "t4t4"), 'a', 'w') &&
+                !checkStateWithVariables(cube.getCubeState(), movesOnPattern(variablesInState, "t6"), 'a', 'w');
+    }
 
     final Moves moves;
     final SolveState solveStateToReach;

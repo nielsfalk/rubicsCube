@@ -4,7 +4,6 @@ import de.n.cube.language.Moves;
 import de.n.cube.language.MovesTest;
 import de.n.cube.mechanics.Cube;
 import org.hamcrest.CoreMatchers;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static de.n.cube.language.Moves.moves;
@@ -80,11 +79,18 @@ public class AlgorithmTest {
     }
 
     @Test
-    @Ignore("this is strange")
+    //@Ignore("this is strange")
     public void spinFirstLayer() {
         Cube orientationWhiteMiddleCube = orientationWhiteMiddleCube();
-        System.out.println(orientationWhiteMiddleCube.getCubeState());
         Algorithm algorithm = Algorithm.spinFirstLayer;
+
+        assertThat(algorithm.isApplyHelpFull(orientationWhiteMiddleCube), is(true));
+        System.out.println(orientationWhiteMiddleCube.getCubeState());
+        algorithm.moves.apply(orientationWhiteMiddleCube);
+
+        assertThat(algorithm.isApplyHelpFull(orientationWhiteMiddleCube), is(true));
+        System.out.println(orientationWhiteMiddleCube.getCubeState());
+        algorithm.moves.apply(orientationWhiteMiddleCube);
 
         assertThat(algorithm.isApplyHelpFull(orientationWhiteMiddleCube), is(true));
         System.out.println(orientationWhiteMiddleCube.getCubeState());
@@ -106,7 +112,7 @@ public class AlgorithmTest {
     }
 
     private Cube orientationWhiteMiddleCube() {
-        Cube orientationWhiteMiddleCube = Moves.moves("turned", "t2t2lfru").apply(new Cube());
+        Cube orientationWhiteMiddleCube = Moves.moves("turned", "t2t2lfrud-").apply(new Cube());
         assertThat(orientationWhiteMiddle.isReached(orientationWhiteMiddleCube), is(true));
         return orientationWhiteMiddleCube;
     }
