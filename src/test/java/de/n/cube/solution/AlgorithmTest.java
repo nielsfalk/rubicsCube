@@ -112,7 +112,7 @@ public class AlgorithmTest {
     }
 
     private Cube orientationWhiteMiddleCube() {
-        Cube orientationWhiteMiddleCube = Moves.moves("turned", "t2t2lfrud-").apply(new Cube());
+        Cube orientationWhiteMiddleCube = Moves.moves("turned", "t2t2lfru" + "d-").apply(new Cube());
         assertThat(orientationWhiteMiddle.isReached(orientationWhiteMiddleCube), is(true));
         return orientationWhiteMiddleCube;
     }

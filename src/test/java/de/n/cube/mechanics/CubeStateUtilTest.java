@@ -101,9 +101,9 @@ public class CubeStateUtilTest {
         CubeStateUtil.checkStateWithVariables("oyy\n" +
                 "oyr\n" +
                 "bbr\n" +
-                "yygyyobowbbr\n" +
-                "rrwgggyowbbw\n" +
-                "rrwgggyowbbw\n" +
+                "yyg" + "yyo" + "bow" + "bbr\n" +
+                "rrw" + "ggg" + "yow" + "bbw\n" +
+                "rrw" + "ggg" + "yow" + "bbw\n" +
                 "ggo\n" +
                 "rwo\n" +
                 "rwo\n", "...\n" +
