@@ -56,4 +56,48 @@ public class CubeStateUtilTest {
         }
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void checkStateWithVariablesErr() {
+        char notInVariablesInState = 'c';
+        CubeStateUtil.checkStateWithVariables(new Cube().cubeState, "...", notInVariablesInState);
+    }
+
+    @Test
+    public void checkStateWithVariables() {
+        String variablesInState = "...\n"//
+                + ".a.\n"//
+                + "...\n"//
+                + "bb..........\n"//
+                + "...........c\n"//
+                + "..........a.\n"//
+                + "c..\n"//
+                + "...\n"//
+                + "...\n";
+
+        String matchingState = "...\n"//
+                + ".r.\n"//
+                + "...\n"//
+                + "gg..........\n"//
+                + "...........y\n"//
+                + "..........r.\n"//
+                + "y..\n"//
+                + "...\n"//
+                + "...\n";
+
+        String cNotMatchingState = "...\n"//
+                + ".r.\n"//
+                + "...\n"//
+                + "gg..........\n"//
+                + "...........b\n"//
+                + "..........r.\n"//
+                + "!..\n"//
+                + "...\n"//
+                + "...\n";
+
+
+        assertThat(CubeStateUtil.checkStateWithVariables(new Cube().cubeState, variablesInState, 'a', 'b', 'c'), is(false));
+        assertThat(CubeStateUtil.checkStateWithVariables(matchingState, variablesInState, 'a', 'b', 'c'), is(true));
+        assertThat(CubeStateUtil.checkStateWithVariables(cNotMatchingState, variablesInState, 'a', 'b', 'c'), is(false));
+    }
+
 }

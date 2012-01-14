@@ -40,4 +40,23 @@ public class CubeStateUtil {
         String faceState = face.faceState(cube.getCubeState());
         return Face.middlePointColor(faceState) == 'w';
     }
+
+    public static boolean checkStateWithVariables(String cubeState, String variablesInState, char... variables) {
+        char[] variablesInStateArray = variablesInState.toCharArray();
+        for (char variable : variables) {
+            int firstPosition = variablesInState.indexOf(variable);
+            if (firstPosition == -1) {
+                throw new IllegalArgumentException("variable " + variable + " not found in \n" + variablesInState);
+            }
+            char expected = cubeState.charAt(firstPosition);
+            for (int i = 0; i < variablesInStateArray.length; i++) {
+                if (variablesInStateArray[i] == variable) {
+                    if (cubeState.charAt(i) != expected) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
 }
