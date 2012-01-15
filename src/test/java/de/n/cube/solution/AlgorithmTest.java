@@ -7,8 +7,7 @@ import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
 import static de.n.cube.language.Moves.moves;
-import static de.n.cube.solution.Algorithm.forSolveState;
-import static de.n.cube.solution.Algorithm.whiteIsUp;
+import static de.n.cube.solution.Algorithm.*;
 import static de.n.cube.solution.SolveState.orientationWhiteMiddle;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -84,24 +83,19 @@ public class AlgorithmTest {
         Algorithm algorithm = Algorithm.spinFirstLayer;
 
         assertThat(algorithm.isApplyHelpFull(orientationWhiteMiddleCube).value, is(true));
-        System.out.println(orientationWhiteMiddleCube.getCubeState());
         algorithm.baseMoves.apply(orientationWhiteMiddleCube);
 
         assertThat(algorithm.isApplyHelpFull(orientationWhiteMiddleCube).value, is(true));
-        System.out.println(orientationWhiteMiddleCube.getCubeState());
         algorithm.baseMoves.apply(orientationWhiteMiddleCube);
 
         assertThat(algorithm.isApplyHelpFull(orientationWhiteMiddleCube).value, is(true));
-        System.out.println(orientationWhiteMiddleCube.getCubeState());
         algorithm.baseMoves.apply(orientationWhiteMiddleCube);
 
         assertThat(algorithm.isApplyHelpFull(orientationWhiteMiddleCube).value, is(false));
-
-        System.out.println(orientationWhiteMiddleCube.getCubeState());
     }
 
     @Test
-    public void hWaa2vWaa() {
+    public void hWaa2vAaw() {
         Cube cube = cube("rog\n"//
                 + "b..\n"//
                 + "...\n"//
@@ -111,8 +105,7 @@ public class AlgorithmTest {
                 + "...\n"//
                 + ".w.\n"//
                 + "...\n");
-        Algorithm algorithm = Algorithm.hWaa2vAaw;
-        Algorithm.HelpFullResult helpFullResult = algorithm.isApplyHelpFull(cube);
+        Algorithm.HelpFullResult helpFullResult = hWaa2vAaw.isApplyHelpFull(cube);
         assertThat(helpFullResult.value, is(true));
         assertThat(helpFullResult.moves.toString(), is("hWaa2vAaw:F-"));
         helpFullResult.moves.apply(cube);
@@ -128,7 +121,7 @@ public class AlgorithmTest {
     }
 
     @Test
-    public void hWaa2vWaaOtherHorizontalFronts() {
+    public void hWaa2vAawOtherHorizontalFronts() {
         Cube cube = cube("rog\n"//
                 + "b..\n"//
                 + "...\n"//
@@ -138,20 +131,95 @@ public class AlgorithmTest {
                 + "...\n"//
                 + ".w.\n"//
                 + "...\n");
-        Algorithm algorithm = Algorithm.hWaa2vAaw;
-
-
-        testHWaa2vWaa(cube, algorithm, "L-");
-        testHWaa2vWaa(cube, algorithm, "B-");
-        testHWaa2vWaa(cube, algorithm, "R-");
-        testHWaa2vWaa(cube, algorithm, "F-");
+        testHWaa2vWaa(cube, "L-");
+        testHWaa2vWaa(cube, "B-");
+        testHWaa2vWaa(cube, "R-");
+        testHWaa2vWaa(cube, "F-");
     }
 
-    private void testHWaa2vWaa(Cube cube, Algorithm algorithm, String expectedMove) {
+    @Test
+    public void hAaw2vAaw() {
+        Cube cube = cube("rog\n"//
+                + "b..\n"//
+                + "...\n"//
+                + "..." + "..." + "..." + "...\n"//
+                + ".rr" + "w.." + "..." + "...\n"//
+                + "..." + "..." + "..." + "...\n"//
+                + "...\n"//
+                + ".w.\n"//
+                + "...\n");
+        Algorithm.HelpFullResult helpFullResult = Algorithm.hAaw2vAaw.isApplyHelpFull(cube);
+        assertThat(helpFullResult.value, is(true));
+        assertThat(helpFullResult.moves.toString(), is("hAaw2vAaw:F"));
+        helpFullResult.moves.apply(cube);
+        assertThat(cube.getCubeState(), is("rog\n" +
+                "b..\n" +
+                "...\n" +
+                "............\n" +
+                ".r..........\n" +
+                ".r..........\n" +
+                ".w.\n" +
+                ".w.\n" +
+                "...\n"));
+    }
+
+    @Test
+    public void whiteFromYellowFace1() {
+        Cube cube = cube("rog\n"//
+                + "b..\n"//
+                + ".w.\n"//
+                + ".r." + "..." + "..." + "...\n"//
+                + ".r." + "..." + "..." + "...\n"//
+                + "..." + "..." + "..." + "...\n"//
+                + "...\n"//
+                + ".w.\n"//
+                + "...\n");
+        Algorithm.HelpFullResult helpFullResult = whiteFromYellowFace1.isApplyHelpFull(cube);
+        assertThat(helpFullResult.value, is(true));
+        assertThat(helpFullResult.moves.toString(), is("whiteFromYellowFace1:F2"));
+        helpFullResult.moves.apply(cube);
+        assertThat(cube.getCubeState(), is("rog\n" +
+                "b..\n" +
+                "...\n" +
+                "............\n" +
+                ".r..........\n" +
+                ".r..........\n" +
+                ".w.\n" +
+                ".w.\n" +
+                "...\n"));
+    }
+
+    @Test
+    public void whiteFromYellowFaceHorizontalFronts() {
+        Cube cube = cube("rog\n"//
+                + "b..\n"//
+                + ".w.\n"//
+                + ".r." + "..." + "..." + "...\n"//
+                + ".r." + "..." + "..." + "...\n"//
+                + "..." + "..." + "..." + "...\n"//
+                + "...\n"//
+                + ".w.\n"//
+                + "...\n");
+        testWhiteFromYellow(cube, "L2");
+        testWhiteFromYellow(cube, "B2");
+        testWhiteFromYellow(cube, "R2");
+        testWhiteFromYellow(cube, "F2");
+    }
+
+    private void testHWaa2vWaa(Cube cube, String expectedMove) {
+        Algorithm algorithm = hWaa2vAaw;
         moves("t4").apply(cube);
         Algorithm.HelpFullResult helpFullResult = algorithm.isApplyHelpFull(cube);
         assertThat(helpFullResult.value, is(true));
         assertThat(helpFullResult.moves.toString(), is("hWaa2vAaw:" + expectedMove));
+    }
+
+    private void testWhiteFromYellow(Cube cube, String expectedMove) {
+        Algorithm algorithm = whiteFromYellowFace1;
+        moves("t4").apply(cube);
+        Algorithm.HelpFullResult helpFullResult = algorithm.isApplyHelpFull(cube);
+        assertThat(helpFullResult.value, is(true));
+        assertThat(helpFullResult.moves.toString(), is("whiteFromYellowFace1:" + expectedMove));
     }
 
     private Cube cube(String state) {

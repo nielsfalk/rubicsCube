@@ -113,6 +113,64 @@ public enum Algorithm {
             }
             return NOT_HELP_FULL;
         }
+    }, hAaw2vAaw(cross, moves("f")) {
+        @Override
+        public HelpFullResult isApplyHelpFull(Cube cube) {
+            String variableInState = "...\n"//
+                    + "...\n"//
+                    + "...\n"//
+                    + "..." + "..." + "..." + "...\n"//
+                    + ".aa" + "w.." + "..." + "...\n"//
+                    + "..." + "..." + "..." + "...\n"//
+                    + "...\n"//
+                    + ".w.\n"//
+                    + "...\n";
+            if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
+                return new HelpFullResult(true, baseMoves);
+            }
+            variableInState = CubeStateUtil.movesOnPattern(variableInState, "t4");
+            if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
+                return new HelpFullResult(true, moves(this.name(), "l"));
+            }
+            variableInState = CubeStateUtil.movesOnPattern(variableInState, "t4");
+            if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
+                return new HelpFullResult(true, moves(this.name(), "b"));
+            }
+            variableInState = CubeStateUtil.movesOnPattern(variableInState, "t4");
+            if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
+                return new HelpFullResult(true, moves(this.name(), "r"));
+            }
+            return NOT_HELP_FULL;
+        }
+    }, whiteFromYellowFace1(cross, moves("f2")) {
+        @Override
+        public HelpFullResult isApplyHelpFull(Cube cube) {
+            String variableInState = "...\n"//
+                    + "...\n"//
+                    + ".w.\n"//
+                    + ".a." + "..." + "..." + "...\n"//
+                    + ".a." + "..." + "..." + "...\n"//
+                    + "..." + "..." + "..." + "...\n"//
+                    + "...\n"//
+                    + ".w.\n"//
+                    + "...\n";
+            if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
+                return new HelpFullResult(true, baseMoves);
+            }
+            variableInState = CubeStateUtil.movesOnPattern(variableInState, "t4");
+            if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
+                return new HelpFullResult(true, moves(this.name(), "l2"));
+            }
+            variableInState = CubeStateUtil.movesOnPattern(variableInState, "t4");
+            if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
+                return new HelpFullResult(true, moves(this.name(), "b2"));
+            }
+            variableInState = CubeStateUtil.movesOnPattern(variableInState, "t4");
+            if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
+                return new HelpFullResult(true, moves(this.name(), "r2"));
+            }
+            return NOT_HELP_FULL;
+        }
     };
 
 
