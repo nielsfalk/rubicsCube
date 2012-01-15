@@ -112,7 +112,7 @@ public enum Algorithm {
         @Override
         public HelpFullResult isApplyHelpFull(Cube cube) {
             String variableInState = "...\n"//
-                    + "...\n"//
+                    + "...\n"
                     + ".w.\n"//
                     + ".a." + "..." + "..." + "...\n"//
                     + ".a." + "..." + "..." + "...\n"//
@@ -121,6 +121,33 @@ public enum Algorithm {
                     + ".w.\n"//
                     + "...\n";
             return crossOneMoveHelpFull(cube, this, variableInState, "2");
+        }
+    }, prepareCrossOneMove(cross, moves("u")) {
+        @Override
+        public HelpFullResult isApplyHelpFull(Cube cube) {
+            String variablesInState = "...\n"//
+                    + "...\n"//
+                    + ".w.\n"//
+                    + ".a." + "..." + "..." + "...\n"//
+                    + "..." + ".a." + "..." + "...\n"//
+                    + "..." + "..." + "..." + "...\n"//
+                    + "...\n"//
+                    + ".w.\n"//
+                    + "...\n";
+            for (String move : new String[]{"U-", "U2", "U"}) {
+                if (!move.equals("U-")) {
+                    variablesInState = movesOnPattern(variablesInState, "U");
+                }
+                for (int i = 0; i < 4; i++) {
+                    if (i != 0) {
+                        variablesInState = movesOnPattern(variablesInState, "T6");
+                    }
+                    if (checkStateWithVariables(cube.getCubeState(), variablesInState, 'w', 'a')) {
+                        return new HelpFullResult(moves(this.name(), move));
+                    }
+                }
+            }
+            return NOT_HELP_FULL;
         }
     };
 
@@ -184,6 +211,16 @@ public enum Algorithm {
         public HelpFullResult(boolean value, Moves moves) {
             this.value = value;
             this.moves = value ? moves : null;
+        }
+
+        /**
+         * Always positive
+         *
+         * @param moves moves
+         */
+        public HelpFullResult(Moves moves) {
+            this.moves = moves;
+            value = true;
         }
     }
 }

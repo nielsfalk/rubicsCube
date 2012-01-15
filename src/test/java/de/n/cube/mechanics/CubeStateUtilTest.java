@@ -94,10 +94,21 @@ public class CubeStateUtilTest {
                 + "...\n"//
                 + "...\n";
 
+        String variablesWithSameValue = "...\n"//
+                + ".r.\n"//
+                + "...\n"//
+                + "gg..........\n"//
+                + "...........b\n"//
+                + "..........r.\n"//
+                + "ab.\n"//
+                + "...\n"//
+                + "...\n";
+
 
         assertThat(CubeStateUtil.checkStateWithVariables(new Cube().cubeState, variablesInState, 'a', 'b', 'c'), is(false));
         assertThat(CubeStateUtil.checkStateWithVariables(matchingState, variablesInState, 'a', 'b', 'c'), is(true));
         assertThat(CubeStateUtil.checkStateWithVariables(cNotMatchingState, variablesInState, 'a', 'b', 'c'), is(false));
+        assertThat(CubeStateUtil.checkStateWithVariables(matchingState, variablesWithSameValue, 'a', 'b'), is(false));
         CubeStateUtil.checkStateWithVariables("oyy\n" +
                 "oyr\n" +
                 "bbr\n" +

@@ -131,10 +131,10 @@ public class AlgorithmTest {
                 + "...\n"//
                 + ".w.\n"//
                 + "...\n");
-        testHWaa2vWaa(cube, "L-");
-        testHWaa2vWaa(cube, "B-");
-        testHWaa2vWaa(cube, "R-");
-        testHWaa2vWaa(cube, "F-");
+        testCrossOneMove1(cube, "L-");
+        testCrossOneMove1(cube, "B-");
+        testCrossOneMove1(cube, "R-");
+        testCrossOneMove1(cube, "F-");
     }
 
     @Test
@@ -190,7 +190,7 @@ public class AlgorithmTest {
     }
 
     @Test
-    public void crossOneMove1HorizontalFronts() {
+    public void crossOneMove3HorizontalFronts() {
         Cube cube = cube("rog\n"//
                 + "b..\n"//
                 + ".w.\n"//
@@ -200,13 +200,59 @@ public class AlgorithmTest {
                 + "...\n"//
                 + ".w.\n"//
                 + "...\n");
-        testWhiteFromYellow(cube, "L2");
-        testWhiteFromYellow(cube, "B2");
-        testWhiteFromYellow(cube, "R2");
-        testWhiteFromYellow(cube, "F2");
+        testCrossOneMove3(cube, "L2");
+        testCrossOneMove3(cube, "B2");
+        testCrossOneMove3(cube, "R2");
+        testCrossOneMove3(cube, "F2");
     }
 
-    private void testHWaa2vWaa(Cube cube, String expectedMove) {
+    @Test
+    public void prepareCrossOneMove() {
+        Cube cube1 = cube("...\n"//
+                + "...\n"//
+                + ".w.\n"//
+                + ".r." + "..." + "..." + "...\n"//
+                + "..." + ".r." + "..." + "...\n"//
+                + "..." + "..." + "..." + "...\n"//
+                + "...\n"//
+                + ".w.\n"//
+                + "...\n");
+        Cube cube2 = cube("...\n"//
+                + "...\n"//
+                + ".w.\n"//
+                + ".r." + "..." + "..." + "...\n"//
+                + "..." + "..." + ".r." + "...\n"//
+                + "..." + "..." + "..." + "...\n"//
+                + "...\n"//
+                + ".w.\n"//
+                + "...\n");
+        Cube cube3 = cube("...\n"//
+                + "...\n"//
+                + ".w.\n"//
+                + ".r." + "..." + "..." + "...\n"//
+                + "..." + "..." + "..." + ".r.\n"//
+                + "..." + "..." + "..." + "...\n"//
+                + "...\n"//
+                + ".w.\n"//
+                + "...\n");
+        testPrepareCrossOneMove(cube1, "U-");
+        testPrepareCrossOneMove(cube2, "U2");
+        testPrepareCrossOneMove(cube3, "U");
+    }
+
+    private void testPrepareCrossOneMove(Cube cube1, String expectedMove) {
+        assertThat(crossOneMove3.isApplyHelpFull(cube1).value, is(false));
+
+        HelpFullResult helpFull = Algorithm.prepareCrossOneMove.isApplyHelpFull(cube1);
+        assertThat(helpFull.value, is(true));
+        assertThat(helpFull.moves.toString(), is("prepareCrossOneMove:" + expectedMove));
+        helpFull.moves.apply(cube1);
+
+        //now cOM 3 is helpFull
+        assertThat(crossOneMove3.isApplyHelpFull(cube1).value, is(true));
+    }
+
+    private void testCrossOneMove1(Cube cube, String expectedMove) {
         Algorithm algorithm = crossOneMove1;
         moves("t4").apply(cube);
         Algorithm.HelpFullResult helpFullResult = algorithm.isApplyHelpFull(cube);
@@ -214,7 +260,7 @@ public class AlgorithmTest {
         assertThat(helpFullResult.moves.toString(), is("crossOneMove1:" + expectedMove));
     }
 
-    private void testWhiteFromYellow(Cube cube, String expectedMove) {
+    private void testCrossOneMove3(Cube cube, String expectedMove) {
         Algorithm algorithm = crossOneMove3;
         moves("t4").apply(cube);
         Algorithm.HelpFullResult helpFullResult = algorithm.isApplyHelpFull(cube);

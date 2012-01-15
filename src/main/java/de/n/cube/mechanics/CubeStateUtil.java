@@ -2,6 +2,9 @@ package de.n.cube.mechanics;
 
 import de.n.cube.language.Moves;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * User: niles
  * Date: 12.01.12
@@ -45,12 +48,17 @@ public class CubeStateUtil {
 
     public static boolean checkStateWithVariables(String cubeState, String variablesInState, char... variables) {
         char[] variablesInStateArray = variablesInState.toCharArray();
+        List<Character> foundValues = new ArrayList<Character>();
         for (char variable : variables) {
             int firstPosition = variablesInState.indexOf(variable);
             if (firstPosition == -1) {
                 throw new IllegalArgumentException("variable " + variable + " not found in \n" + variablesInState);
             }
             char expected = cubeState.charAt(firstPosition);
+            if (foundValues.contains(expected)) {
+                return false;
+            }
+            foundValues.add(expected);
             for (int i = 0; i < variablesInStateArray.length; i++) {
                 if (variablesInStateArray[i] == variable) {
                     if (cubeState.charAt(i) != expected) {
