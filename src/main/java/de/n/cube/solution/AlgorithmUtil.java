@@ -30,20 +30,13 @@ class AlgorithmUtil {
 
     public static HelpFullResult crossOneMoveHelpFull(Cube cube, Moves baseMoves, Algorithm algorithm, String patternWithVariables, String spinDirection) {
         String variableInState = patternWithVariables;
-        if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
-            return new HelpFullResult(true, baseMoves);
-        }
-        variableInState = CubeStateUtil.movesOnPattern(variableInState, "t4");
-        if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
-            return new HelpFullResult(true, moves(algorithm.name(), "l" + spinDirection));
-        }
-        variableInState = CubeStateUtil.movesOnPattern(variableInState, "t4");
-        if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
-            return new HelpFullResult(true, moves(algorithm.name(), "b" + spinDirection));
-        }
-        variableInState = CubeStateUtil.movesOnPattern(variableInState, "t4");
-        if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
-            return new HelpFullResult(true, moves(algorithm.name(), "r" + spinDirection));
+        for (char front : new char[]{'f', 'l', 'b', 'r'}) {
+            if (front != 'f') {
+                variableInState = CubeStateUtil.movesOnPattern(variableInState, "t4");
+            }
+            if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
+                return new HelpFullResult(true, moves(algorithm.name(), "" + front + spinDirection));
+            }
         }
         return Algorithm.NOT_HELP_FULL;
     }
