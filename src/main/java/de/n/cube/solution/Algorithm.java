@@ -84,6 +84,7 @@ public enum Algorithm {
     crossOneMove1(cross, moves("f-")) {
         @Override
         public HelpFullResult isApplyHelpFull(Cube cube) {
+            //TODO nit destroy easy move
             return crossOneMoveHelpFull(cube, this, "...\n"//
                     + "...\n"//
                     + "...\n"//
@@ -97,6 +98,7 @@ public enum Algorithm {
     }, crossOneMove2(cross, moves("f")) {
         @Override
         public HelpFullResult isApplyHelpFull(Cube cube) {
+            //TODO nit destroy easy move
             String variableInState = "...\n"//
                     + "...\n"//
                     + "...\n"//
@@ -145,6 +147,161 @@ public enum Algorithm {
                     if (checkStateWithVariables(cube.getCubeState(), variablesInState, 'w', 'a')) {
                         return new HelpFullResult(moves(this.name(), move));
                     }
+                }
+            }
+            return NOT_HELP_FULL;
+        }
+    }, crossTwoMoves1(cross, moves("fr-")) {
+        @Override
+        public HelpFullResult isApplyHelpFull(Cube cube) {
+            String variablesInState = "...\n"//
+                    + "...\n"//
+                    + ".a.\n"//
+                    + ".w." + "..." + "..." + "...\n"//
+                    + "..." + ".a." + "..." + "...\n"//
+                    + "..." + "..." + "..." + "...\n"//
+                    + "...\n"//
+                    + ".w.\n"//
+                    + "...\n";
+            for (String moves : new String[]{"fr-", "rb-", "bl-", "lf-"}) {
+                if (!moves.equals("fr-")) {
+                    variablesInState = movesOnPattern(variablesInState, "t6");
+                }
+                if (checkStateWithVariables(cube.getCubeState(), variablesInState, 'w', 'a')) {
+                    return new HelpFullResult(moves(this.name(), moves));
+                }
+            }
+            return NOT_HELP_FULL;
+        }
+    }, crossTwoMoves2(cross, moves("")) {
+        @Override
+        public HelpFullResult isApplyHelpFull(Cube cube) {
+            String variablesInState = "...\n"//
+                    + "...\n"//
+                    + ".a.\n"//
+                    + ".w." + "..." + "..." + "...\n"//
+                    + "..." + "..." + "..." + ".a.\n"//
+                    + "..." + "..." + "..." + "...\n"//
+                    + "...\n"//
+                    + ".w.\n"//
+                    + "...\n";
+            for (String moves : new String[]{"f-l", "r-f", "b-r", "l-b"}) {
+                if (!moves.equals("f-l")) {
+                    variablesInState = movesOnPattern(variablesInState, "t6");
+                }
+                if (checkStateWithVariables(cube.getCubeState(), variablesInState, 'w', 'a')) {
+                    return new HelpFullResult(moves(this.name(), moves));
+                }
+            }
+            return NOT_HELP_FULL;
+        }
+    }, prepareCrossTwoMoves(cross, moves("u")) {
+        @Override
+        public HelpFullResult isApplyHelpFull(Cube cube) {
+            String variablesInState = "...\n"//
+                    + "...\n"//
+                    + ".a.\n"//
+                    + ".w." + "..." + "..." + "...\n"//
+                    + "..." + ".b." + "..." + ".c.\n"//
+                    + "..." + "..." + "..." + "...\n"//
+                    + "...\n"//
+                    + ".w.\n"//
+                    + "...\n";
+            for (int i = 0; i < 4; i++) {
+                if (i != 0) {
+                    variablesInState = movesOnPattern(variablesInState, "t6");
+                }
+                if (checkStateWithVariables(cube.getCubeState(), variablesInState, 'w', 'a', 'b', 'c')) {
+                    return new HelpFullResult(baseMoves);
+                }
+            }
+            return NOT_HELP_FULL;
+        }
+    }, moveOutWrongInSecondLayer1(cross, moves("f-u")) {
+        @Override
+        public HelpFullResult isApplyHelpFull(Cube cube) {
+            String variablesInState = "...\n"//
+                    + "...\n"//
+                    + "...\n"//
+                    + "..." + "..." + "..." + "...\n"//
+                    + ".ab" + "w.." + "..." + "...\n"//
+                    + "..." + "..." + "..." + "...\n"//
+                    + "...\n"//
+                    + ".w.\n"//
+                    + "...\n";
+            for (String move : new String[]{"f-u", "r-u", "b-u", "l-u"}) {
+                if (!move.equals("f-u")) {
+                    variablesInState = movesOnPattern(variablesInState, "t6");
+                }
+                if (checkStateWithVariables(cube.getCubeState(), variablesInState, 'w', 'a', 'b')) {
+                    return new HelpFullResult(moves(this.name(), move));
+                }
+            }
+            return NOT_HELP_FULL;
+        }
+    }, moveOutWrongInSecondLayer2(cross, moves("fu")) {
+        @Override
+        public HelpFullResult isApplyHelpFull(Cube cube) {
+            String variablesInState = "...\n"//
+                    + "...\n"//
+                    + "...\n"//
+                    + "..." + "..." + "..." + "...\n"//
+                    + "ab." + ",.." + "..." + "..w\n"//
+                    + "..." + "..." + "..." + "...\n"//
+                    + "...\n"//
+                    + ".w.\n"//
+                    + "...\n";
+
+            for (String move : new String[]{"fu", "ru", "bu", "lu"}) {
+                if (!move.equals("fu")) {
+                    variablesInState = movesOnPattern(variablesInState, "t6");
+                }
+                if (checkStateWithVariables(cube.getCubeState(), variablesInState, 'w', 'a', 'b')) {
+                    return new HelpFullResult(moves(this.name(), move));
+                }
+            }
+            return NOT_HELP_FULL;
+        }
+    }, moveOutWrongInFirstLayer1(cross, moves("f2")) {
+        @Override
+        public HelpFullResult isApplyHelpFull(Cube cube) {
+            String variablesInState = "...\n"//
+                    + "...\n"//
+                    + "...\n"//
+                    + "..." + "..." + "..." + "...\n"//
+                    + "..." + ",.." + "..." + "...\n"//
+                    + ".w." + "..." + "..." + "...\n"//
+                    + ".a.\n"//
+                    + ".w.\n"//
+                    + "...\n";
+            for (String move : new String[]{"f2", "r2", "b2", "l2"}) {
+                if (!move.equals("f2")) {
+                    variablesInState = movesOnPattern(variablesInState, "t6");
+                }
+                if (checkStateWithVariables(cube.getCubeState(), variablesInState, 'w', 'a')) {
+                    return new HelpFullResult(moves(this.name(), move));
+                }
+            }
+            return NOT_HELP_FULL;
+        }
+    }, moveOutWrongInFirstLayer2(cross, moves("f2")) {
+        @Override
+        public HelpFullResult isApplyHelpFull(Cube cube) {
+            String variablesInState = "...\n"//
+                    + "...\n"//
+                    + "...\n"//
+                    + "..." + "..." + "..." + "...\n"//
+                    + ".b." + ",.." + "..." + "...\n"//
+                    + ".a." + "..." + "..." + "...\n"//
+                    + ".w.\n"//
+                    + ".w.\n"//
+                    + "...\n";
+            for (String move : new String[]{"f2", "r2", "b2", "l2"}) {
+                if (!move.equals("f2")) {
+                    variablesInState = movesOnPattern(variablesInState, "t6");
+                }
+                if (checkStateWithVariables(cube.getCubeState(), variablesInState, 'w', 'a', 'b')) {
+                    return new HelpFullResult(moves(this.name(), move));
                 }
             }
             return NOT_HELP_FULL;

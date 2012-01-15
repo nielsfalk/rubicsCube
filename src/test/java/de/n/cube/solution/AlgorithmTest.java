@@ -189,6 +189,7 @@ public class AlgorithmTest {
                 "...\n"));
     }
 
+
     @Test
     public void crossOneMove3HorizontalFronts() {
         Cube cube = cube("rog\n"//
@@ -238,6 +239,187 @@ public class AlgorithmTest {
         testPrepareCrossOneMove(cube1, "U-");
         testPrepareCrossOneMove(cube2, "U2");
         testPrepareCrossOneMove(cube3, "U");
+    }
+
+    @Test
+    public void crossTwoMoves1() {
+        Cube cube = cube("...\n"//
+                + "..b\n"//
+                + "...\n"//
+                + "..." + ".w." + "..." + "...\n"//
+                + "..." + "..." + ".b." + "...\n"//
+                + "..." + "..." + "..." + "...\n"//
+                + "...\n"//
+                + ".w.\n"//
+                + "...\n");
+        HelpFullResult helpFullResult = Algorithm.crossTwoMoves1.isApplyHelpFull(cube);
+
+        assertThat(helpFullResult.value, is(true));
+        assertThat(helpFullResult.moves.toString(), is("crossTwoMoves1:RB-"));
+        helpFullResult.moves.apply(cube);
+        assertThat(cube.getCubeState(), is("...\n" +
+                "...\n" +
+                "...\n" +
+                "............\n" +
+                ".......b....\n" +
+                ".......b....\n" +
+                "...\n" +
+                ".w.\n" +
+                ".w.\n"));
+    }
+
+    @Test
+    public void crossTwoMoves2() {
+        Cube cube = cube("...\n"//
+                + "..b\n"//
+                + "...\n"//
+                + "..." + ".w." + "..." + "...\n"//
+                + ".b." + "..." + "..." + "...\n"//
+                + "..." + "..." + "..." + "...\n"//
+                + "...\n"//
+                + ".w.\n"//
+                + "...\n");
+        HelpFullResult helpFullResult = crossTwoMoves2.isApplyHelpFull(cube);
+
+        assertThat(helpFullResult.value, is(true));
+        assertThat(helpFullResult.moves.toString(), is("crossTwoMoves2:R-F"));
+        helpFullResult.moves.apply(cube);
+        assertThat(cube.getCubeState(), is("...\n" +
+                "...\n" +
+                "...\n" +
+                "............\n" +
+                ".b..........\n" +
+                ".b..........\n" +
+                ".w.\n" +
+                ".w.\n" +
+                "...\n"));
+    }
+
+    @Test
+    public void prepareCrossTwoMoves() {
+        Cube cube = cube("...\n"//
+                + "...\n"//
+                + ".o.\n"//
+                + ".w." + "..." + "..." + "...\n"//
+                + ".o." + ".b." + ".r." + ".g.\n"//
+                + "..." + "..." + "..." + "...\n"//
+                + "...\n"//
+                + ".w.\n"//
+                + "...\n");
+        assertThat(crossTwoMoves2.isApplyHelpFull(cube).value, is(false));
+        assertThat(crossTwoMoves1.isApplyHelpFull(cube).value, is(false));
+        HelpFullResult helpFullResult = Algorithm.prepareCrossTwoMoves.isApplyHelpFull(cube);
+        assertThat(helpFullResult.value, is(true));
+        assertThat(helpFullResult.moves.toString(), is("prepareCrossTwoMoves:U"));
+        helpFullResult.moves.apply(cube);
+
+        assertThat(crossTwoMoves1.isApplyHelpFull(cube).value, is(true));
+    }
+
+    @Test
+    public void moveOutWrongInSecondLayer1() {
+        Cube cube = cube("...\n"//
+                + "...\n"//
+                + "...\n"//
+                + "..." + "..." + "..." + "...\n"//
+                + ".bg" + "w.." + "..." + "...\n"//
+                + "..." + "..." + "..." + "...\n"//
+                + "...\n"//
+                + ".w.\n"//
+                + "...\n");
+
+        HelpFullResult helpFullResult = Algorithm.moveOutWrongInSecondLayer1.isApplyHelpFull(cube);
+        assertThat(helpFullResult.value, is(true));
+        assertThat(helpFullResult.moves.toString(), is("moveOutWrongInSecondLayer1:F-U"));
+        helpFullResult.moves.apply(cube);
+        assertThat(cube.getCubeState(), is("...\n" +
+                "w..\n" +
+                "...\n" +
+                "..........g.\n" +
+                ".b..........\n" +
+                "............\n" +
+                "...\n" +
+                ".w.\n" +
+                "...\n"));
+    }
+
+    @Test
+    public void moveOutWrongInSecondLayer2() {
+        Cube cube = cube("...\n"//
+                + "...\n"//
+                + "...\n"//
+                + "..." + "..." + "..." + "...\n"//
+                + "gb." + ",.." + "..." + "..w\n"//
+                + "..." + "..." + "..." + "...\n"//
+                + "...\n"//
+                + ".w.\n"//
+                + "...\n");
+
+        HelpFullResult helpFullResult = Algorithm.moveOutWrongInSecondLayer2.isApplyHelpFull(cube);
+        assertThat(helpFullResult.value, is(true));
+        assertThat(helpFullResult.moves.toString(), is("moveOutWrongInSecondLayer2:FU"));
+        helpFullResult.moves.apply(cube);
+        assertThat(cube.getCubeState(), is("...\n" +
+                "w..\n" +
+                "...\n" +
+                "..........g.\n" +
+                ".b..........\n" +
+                "............\n" +
+                ".,.\n" +
+                ".w.\n" +
+                "...\n"));
+    }
+
+    @Test
+    public void moveOutWrongInFirstLayer1() {
+        Cube cube = cube("...\n"//
+                + "...\n"//
+                + "...\n"//
+                + "..." + "..." + "..." + "...\n"//
+                + "..." + ",.." + "..." + "...\n"//
+                + ".w." + "..." + "..." + "...\n"//
+                + ".g.\n"//
+                + ".w.\n"//
+                + "...\n");
+        HelpFullResult helpFullResult = Algorithm.moveOutWrongInFirstLayer1.isApplyHelpFull(cube);
+        assertThat(helpFullResult.value, is(true));
+        assertThat(helpFullResult.moves.toString(), is("moveOutWrongInFirstLayer1:F2"));
+        helpFullResult.moves.apply(cube);
+        assertThat(cube.getCubeState(), is("...\n" +
+                "...\n" +
+                ".g.\n" +
+                ".w..........\n" +
+                "...........,\n" +
+                "............\n" +
+                "...\n" +
+                ".w.\n" +
+                "...\n"));
+    }
+
+    @Test
+    public void moveOutWrongInFirstLayer2() {
+        Cube cube = cube("...\n"//
+                + "...\n"//
+                + "...\n"//
+                + "..." + "..." + "..." + "...\n"//
+                + ".b." + "..." + "..." + "...\n"//
+                + ".g." + "..." + "..." + "...\n"//
+                + ".w.\n"//
+                + ".w.\n"//
+                + "...\n");
+        HelpFullResult helpFullResult = Algorithm.moveOutWrongInFirstLayer2.isApplyHelpFull(cube);
+        assertThat(helpFullResult.value, is(true));
+        assertThat(helpFullResult.moves.toString(), is("moveOutWrongInFirstLayer2:F2"));
+        helpFullResult.moves.apply(cube);
+        assertThat(cube.getCubeState(), is("...\n" +
+                "...\n" +
+                ".w.\n" +
+                ".g..........\n" +
+                ".b..........\n" +
+                "............\n" +
+                "...\n" +
+                ".w.\n" +
+                "...\n"));
     }
 
     private void testPrepareCrossOneMove(Cube cube1, String expectedMove) {

@@ -1,5 +1,6 @@
 package de.n.cube.solution;
 
+import de.n.cube.language.Moves;
 import de.n.cube.language.MovesTest;
 import de.n.cube.mechanics.Cube;
 import org.junit.Test;
@@ -34,6 +35,6 @@ public class F2lSolutionTest {
 
     @Test
     public void solve2() {
-        assertThat(new F2lSolution(MovesTest.SUPER_FLIP.apply(new Cube())).solved, is(false));
+        assertThat(new F2lSolution(Moves.concatenate(MovesTest.SUPER_FLIP, Moves.moves("t2t2")).apply(new Cube())).solved, is(false));
     }
 }
