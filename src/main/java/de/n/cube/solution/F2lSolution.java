@@ -75,12 +75,13 @@ class F2lSolution {
     private Moves solve(SolveState solveState, Cube cube, boolean sortAlgorithmByLength) {
         List<Algorithm> algorithms = Algorithm.forSolveState(solveState);
         for (Algorithm algorithm : algorithms) {
-            if (algorithm.isApplyHelpFull(cube)) {
-                algorithm.moves.apply(cube);
+            Algorithm.HelpFullResult helpFullResult = algorithm.isApplyHelpFull(cube);
+            if (helpFullResult.value) {
+                helpFullResult.moves.apply(cube);
                 if (solveState.isReached(cube)) {
                     log.info(solveState.name() + " done");
                 }
-                return algorithm.moves;
+                return algorithm.baseMoves;
             }
         }
         log.severe("can't solve to state " + solveState.name());

@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import static de.n.cube.language.Moves.moves;
 import static de.n.cube.mechanics.CubeStateUtil.*;
 import static de.n.cube.solution.SolveState.cross;
 import static de.n.cube.solution.SolveState.orientationWhiteMiddle;
@@ -33,38 +34,38 @@ import static de.n.cube.solution.SolveState.orientationWhiteMiddle;
  * @author niles
  */
 public enum Algorithm {
-    whiteIsUp(orientationWhiteMiddle, Moves.moves("", "t2t2")) {
+    whiteIsUp(orientationWhiteMiddle, moves("", "t2t2")) {
         @Override
-        public boolean isApplyHelpFull(Cube cube) {
-            return isFaceMiddleColorWhite(cube, Face.top);
+        public HelpFullResult isApplyHelpFull(Cube cube) {
+            return new HelpFullResult(isFaceMiddleColorWhite(cube, Face.top), baseMoves);
         }
-    }, whiteIsFront(orientationWhiteMiddle, Moves.moves("", "t8")) {
+    }, whiteIsFront(orientationWhiteMiddle, moves("", "t8")) {
         @Override
-        public boolean isApplyHelpFull(Cube cube) {
-            return isFaceMiddleColorWhite(cube, Face.front);
+        public HelpFullResult isApplyHelpFull(Cube cube) {
+            return new HelpFullResult(isFaceMiddleColorWhite(cube, Face.front), baseMoves);
         }
-    }, whiteIsRight(orientationWhiteMiddle, Moves.moves("", "t4t8")) {
+    }, whiteIsRight(orientationWhiteMiddle, moves("", "t4t8")) {
         @Override
-        public boolean isApplyHelpFull(Cube cube) {
-            return isFaceMiddleColorWhite(cube, Face.right);
+        public HelpFullResult isApplyHelpFull(Cube cube) {
+            return new HelpFullResult(isFaceMiddleColorWhite(cube, Face.right), baseMoves);
         }
-    }, whiteIsBack(orientationWhiteMiddle, Moves.moves("", "t2")) {
+    }, whiteIsBack(orientationWhiteMiddle, moves("", "t2")) {
         @Override
-        public boolean isApplyHelpFull(Cube cube) {
-            return isFaceMiddleColorWhite(cube, Face.back);
+        public HelpFullResult isApplyHelpFull(Cube cube) {
+            return new HelpFullResult(isFaceMiddleColorWhite(cube, Face.back), baseMoves);
         }
-    }, whiteIsLeft(orientationWhiteMiddle, Moves.moves("", "t6t8")) {
+    }, whiteIsLeft(orientationWhiteMiddle, moves("", "t6t8")) {
         @Override
-        public boolean isApplyHelpFull(Cube cube) {
-            return isFaceMiddleColorWhite(cube, Face.left);
+        public HelpFullResult isApplyHelpFull(Cube cube) {
+            return new HelpFullResult(isFaceMiddleColorWhite(cube, Face.left), baseMoves);
         }
-    }, spinFirstLayer(cross, Moves.moves("", "d-")) {
+    }, spinFirstLayer(cross, moves("", "d-")) {
         @Override
-        public boolean isApplyHelpFull(Cube cube) {
+        public HelpFullResult isApplyHelpFull(Cube cube) {
             String buttonState = Face.button.faceState(cube.getCubeState());
             String maskedButtonState = CubeStateUtil.maskState(buttonState, ".?.\n" + "???\n" + ".?.\n");
             if (StringUtils.countMatches(maskedButtonState, "w") == 1) {
-                return false;
+                return NOT_HELP_FULL;
             }
             String variablesInState = "...\n"//
                     + "...\n"//
@@ -76,27 +77,29 @@ public enum Algorithm {
                     + ".w.\n"//
                     + "...\n";
 
-            return nothingSolvedOnCrossYet(cube, variablesInState);
+            return new HelpFullResult(nothingSolvedOnCrossYet(cube, variablesInState), baseMoves);
         }
     };
+    public static final HelpFullResult NOT_HELP_FULL = new HelpFullResult(false);
 
     private static boolean nothingSolvedOnCrossYet(Cube cube, String variablesInState) {
-        return !checkStateWithVariables(cube.getCubeState(), variablesInState, 'a', 'w') &&
-                !checkStateWithVariables(cube.getCubeState(), movesOnPattern(variablesInState, "t4"), 'a', 'w') &&
-                !checkStateWithVariables(cube.getCubeState(), movesOnPattern(variablesInState, "t4t4"), 'a', 'w') &&
-                !checkStateWithVariables(cube.getCubeState(), movesOnPattern(variablesInState, "t6"), 'a', 'w');
+        String cubeState = cube.getCubeState();
+        return !checkStateWithVariables(cubeState, variablesInState, 'a', 'w') &&
+                !checkStateWithVariables(cubeState, movesOnPattern(variablesInState, "t4"), 'a', 'w') &&
+                !checkStateWithVariables(cubeState, movesOnPattern(variablesInState, "t4t4"), 'a', 'w') &&
+                !checkStateWithVariables(cubeState, movesOnPattern(variablesInState, "t6"), 'a', 'w');
     }
 
-    final Moves moves;
+    final Moves baseMoves;
     final SolveState solveStateToReach;
 
-    Algorithm(SolveState solveStateToReach, Moves moves) {
+    Algorithm(SolveState solveStateToReach, Moves baseMoves) {
         this.solveStateToReach = solveStateToReach;
-        this.moves = moves;
-        moves.setDesc(this.name());
+        this.baseMoves = baseMoves;
+        baseMoves.setDesc(this.name());
     }
 
-    public abstract boolean isApplyHelpFull(Cube cube);
+    public abstract HelpFullResult isApplyHelpFull(Cube cube);
 
     public static List<Algorithm> forSolveState(SolveState solveState) {
         List<Algorithm> result = new ArrayList<Algorithm>();
@@ -106,5 +109,25 @@ public enum Algorithm {
             }
         }
         return result;
+    }
+
+    public static class HelpFullResult {
+        public final boolean value;
+        public final Moves moves;
+
+        public HelpFullResult(Moves moves) {
+            this.moves = moves;
+            this.value = true;
+        }
+
+        public HelpFullResult(boolean value) {
+            this.moves = null;
+            this.value = value;
+        }
+
+        public HelpFullResult(boolean value, Moves moves) {
+            this.value = value;
+            this.moves = value ? moves : null;
+        }
     }
 }

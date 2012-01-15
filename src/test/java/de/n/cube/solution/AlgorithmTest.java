@@ -37,7 +37,7 @@ public class AlgorithmTest {
     @Test
     public void whiteIsNotUp() {
         Cube superFlip = moves("turn", "t2t2").apply(new Cube());
-        assertThat(whiteIsUp.isApplyHelpFull(superFlip), CoreMatchers.is(false));
+        assertThat(whiteIsUp.isApplyHelpFull(superFlip).value, CoreMatchers.is(false));
     }
 
     @Test
@@ -74,7 +74,7 @@ public class AlgorithmTest {
     public void noAlgorithmHelpFull() {
         Cube orientationWhiteMiddleCube = orientationWhiteMiddleCube();
         for (Algorithm algorithm : forSolveState(orientationWhiteMiddle)) {
-            assertThat(algorithm.isApplyHelpFull(orientationWhiteMiddleCube), is(false));
+            assertThat(algorithm.isApplyHelpFull(orientationWhiteMiddleCube).value, is(false));
         }
     }
 
@@ -84,26 +84,26 @@ public class AlgorithmTest {
         Cube orientationWhiteMiddleCube = orientationWhiteMiddleCube();
         Algorithm algorithm = Algorithm.spinFirstLayer;
 
-        assertThat(algorithm.isApplyHelpFull(orientationWhiteMiddleCube), is(true));
+        assertThat(algorithm.isApplyHelpFull(orientationWhiteMiddleCube).value, is(true));
         System.out.println(orientationWhiteMiddleCube.getCubeState());
-        algorithm.moves.apply(orientationWhiteMiddleCube);
+        algorithm.baseMoves.apply(orientationWhiteMiddleCube);
 
-        assertThat(algorithm.isApplyHelpFull(orientationWhiteMiddleCube), is(true));
+        assertThat(algorithm.isApplyHelpFull(orientationWhiteMiddleCube).value, is(true));
         System.out.println(orientationWhiteMiddleCube.getCubeState());
-        algorithm.moves.apply(orientationWhiteMiddleCube);
+        algorithm.baseMoves.apply(orientationWhiteMiddleCube);
 
-        assertThat(algorithm.isApplyHelpFull(orientationWhiteMiddleCube), is(true));
+        assertThat(algorithm.isApplyHelpFull(orientationWhiteMiddleCube).value, is(true));
         System.out.println(orientationWhiteMiddleCube.getCubeState());
-        algorithm.moves.apply(orientationWhiteMiddleCube);
+        algorithm.baseMoves.apply(orientationWhiteMiddleCube);
 
-        assertThat(algorithm.isApplyHelpFull(orientationWhiteMiddleCube), is(false));
+        assertThat(algorithm.isApplyHelpFull(orientationWhiteMiddleCube).value, is(false));
 
         System.out.println(orientationWhiteMiddleCube.getCubeState());
     }
 
     private void testIt(Cube cube, Algorithm algorithm) {
-        assertThat(algorithm.isApplyHelpFull(cube), is(true));
-        algorithm.moves.apply(cube);
+        assertThat(algorithm.isApplyHelpFull(cube).value, is(true));
+        algorithm.baseMoves.apply(cube);
         assertThat(algorithm.solveStateToReach.isReached(cube), is(true));
     }
 
