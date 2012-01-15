@@ -21,6 +21,10 @@ public class Moves {
         this.desc = desc;
     }
 
+    public static Moves moves(String cube20String) {
+        return moves("", cube20String);
+    }
+
     public static Moves moves(String desc, String cube20String) {
         cube20String = cube20String.toUpperCase();
         Moves result = new Moves(desc);

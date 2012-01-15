@@ -34,32 +34,32 @@ import static de.n.cube.solution.SolveState.orientationWhiteMiddle;
  * @author niles
  */
 public enum Algorithm {
-    whiteIsUp(orientationWhiteMiddle, moves("", "t2t2")) {
+    whiteIsUp(orientationWhiteMiddle, moves("t2t2")) {
         @Override
         public HelpFullResult isApplyHelpFull(Cube cube) {
             return new HelpFullResult(isFaceMiddleColorWhite(cube, Face.top), baseMoves);
         }
-    }, whiteIsFront(orientationWhiteMiddle, moves("", "t8")) {
+    }, whiteIsFront(orientationWhiteMiddle, moves("t8")) {
         @Override
         public HelpFullResult isApplyHelpFull(Cube cube) {
             return new HelpFullResult(isFaceMiddleColorWhite(cube, Face.front), baseMoves);
         }
-    }, whiteIsRight(orientationWhiteMiddle, moves("", "t4t8")) {
+    }, whiteIsRight(orientationWhiteMiddle, moves("t4t8")) {
         @Override
         public HelpFullResult isApplyHelpFull(Cube cube) {
             return new HelpFullResult(isFaceMiddleColorWhite(cube, Face.right), baseMoves);
         }
-    }, whiteIsBack(orientationWhiteMiddle, moves("", "t2")) {
+    }, whiteIsBack(orientationWhiteMiddle, moves("t2")) {
         @Override
         public HelpFullResult isApplyHelpFull(Cube cube) {
             return new HelpFullResult(isFaceMiddleColorWhite(cube, Face.back), baseMoves);
         }
-    }, whiteIsLeft(orientationWhiteMiddle, moves("", "t6t8")) {
+    }, whiteIsLeft(orientationWhiteMiddle, moves("t6t8")) {
         @Override
         public HelpFullResult isApplyHelpFull(Cube cube) {
             return new HelpFullResult(isFaceMiddleColorWhite(cube, Face.left), baseMoves);
         }
-    }, spinFirstLayer(cross, moves("", "d-")) {
+    }, spinFirstLayer(cross, moves("d-")) {
         @Override
         public HelpFullResult isApplyHelpFull(Cube cube) {
             String buttonState = Face.button.faceState(cube.getCubeState());
@@ -77,9 +77,45 @@ public enum Algorithm {
                     + ".w.\n"//
                     + "...\n";
 
-            return new HelpFullResult(nothingSolvedOnCrossYet(cube, variablesInState), baseMoves);
+            boolean nothingSolvedOnCrossYet = nothingSolvedOnCrossYet(cube, variablesInState);
+            return new HelpFullResult(nothingSolvedOnCrossYet, baseMoves);
+        }
+    },
+    /**
+     * horizontal White ? ? => vertical ? ? White
+     */
+    hWaa2vAaw(cross, moves("f-")) {
+        @Override
+        public HelpFullResult isApplyHelpFull(Cube cube) {
+            String variableInState = "...\n"//
+                    + "...\n"//
+                    + "...\n"//
+                    + "..." + "..." + "..." + "...\n"//
+                    + "aa." + "..." + "..." + "..w\n"//
+                    + "..." + "..." + "..." + "...\n"//
+                    + "...\n"//
+                    + ".w.\n"//
+                    + "...\n";
+            if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
+                return new HelpFullResult(true, baseMoves);
+            }
+            variableInState = CubeStateUtil.movesOnPattern(variableInState, "t4");
+            if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
+                return new HelpFullResult(true, moves(this.name(), "l-"));
+            }
+            variableInState = CubeStateUtil.movesOnPattern(variableInState, "t4");
+            if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
+                return new HelpFullResult(true, moves(this.name(), "b-"));
+            }
+            variableInState = CubeStateUtil.movesOnPattern(variableInState, "t4");
+            if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
+                return new HelpFullResult(true, moves(this.name(), "r-"));
+            }
+            return NOT_HELP_FULL;
         }
     };
+
+
     private static final HelpFullResult NOT_HELP_FULL = new HelpFullResult();
 
     private static boolean nothingSolvedOnCrossYet(Cube cube, String variablesInState) {

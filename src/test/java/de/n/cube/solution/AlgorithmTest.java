@@ -79,7 +79,6 @@ public class AlgorithmTest {
     }
 
     @Test
-    //@Ignore("this is strange")
     public void spinFirstLayer() {
         Cube orientationWhiteMiddleCube = orientationWhiteMiddleCube();
         Algorithm algorithm = Algorithm.spinFirstLayer;
@@ -101,6 +100,64 @@ public class AlgorithmTest {
         System.out.println(orientationWhiteMiddleCube.getCubeState());
     }
 
+    @Test
+    public void hWaa2vWaa() {
+        Cube cube = cube("rog\n"//
+                + "b..\n"//
+                + "...\n"//
+                + "..." + "..." + "..." + "...\n"//
+                + "rr." + "..." + "..." + "..w\n"//
+                + "..." + "..." + "..." + "...\n"//
+                + "...\n"//
+                + ".w.\n"//
+                + "...\n");
+        Algorithm algorithm = Algorithm.hWaa2vAaw;
+        Algorithm.HelpFullResult helpFullResult = algorithm.isApplyHelpFull(cube);
+        assertThat(helpFullResult.value, is(true));
+        assertThat(helpFullResult.moves.toString(), is("hWaa2vAaw:F-"));
+        helpFullResult.moves.apply(cube);
+        assertThat(cube.getCubeState(), is("rog\n" +
+                "b..\n" +
+                "...\n" +
+                "............\n" +
+                ".r..........\n" +
+                ".r..........\n" +
+                ".w.\n" +
+                ".w.\n" +
+                "...\n"));
+    }
+
+    @Test
+    public void hWaa2vWaaOtherHorizontalFronts() {
+        Cube cube = cube("rog\n"//
+                + "b..\n"//
+                + "...\n"//
+                + "..." + "..." + "..." + "...\n"//
+                + "rr." + "..." + "..." + "..w\n"//
+                + "..." + "..." + "..." + "...\n"//
+                + "...\n"//
+                + ".w.\n"//
+                + "...\n");
+        Algorithm algorithm = Algorithm.hWaa2vAaw;
+
+
+        testHWaa2vWaa(cube, algorithm, "L-");
+        testHWaa2vWaa(cube, algorithm, "B-");
+        testHWaa2vWaa(cube, algorithm, "R-");
+        testHWaa2vWaa(cube, algorithm, "F-");
+    }
+
+    private void testHWaa2vWaa(Cube cube, Algorithm algorithm, String expectedMove) {
+        moves("t4").apply(cube);
+        Algorithm.HelpFullResult helpFullResult = algorithm.isApplyHelpFull(cube);
+        assertThat(helpFullResult.value, is(true));
+        assertThat(helpFullResult.moves.toString(), is("hWaa2vAaw:" + expectedMove));
+    }
+
+    private Cube cube(String state) {
+        return new SettableCube().setCubeState(state);
+    }
+
     private void testIt(Cube cube, Algorithm algorithm) {
         assertThat(algorithm.isApplyHelpFull(cube).value, is(true));
         algorithm.baseMoves.apply(cube);
@@ -115,6 +172,13 @@ public class AlgorithmTest {
         Cube orientationWhiteMiddleCube = Moves.moves("turned", "t2t2lfr" + "ud-").apply(new Cube());
         assertThat(orientationWhiteMiddle.isReached(orientationWhiteMiddleCube), is(true));
         return orientationWhiteMiddleCube;
+    }
+
+    public static class SettableCube extends Cube {
+        public SettableCube setCubeState(String state) {
+            this.cubeState = state;
+            return this;
+        }
     }
 
 }

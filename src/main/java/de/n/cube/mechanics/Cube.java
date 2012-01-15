@@ -34,7 +34,7 @@ public class Cube {
     public static final String BUTTON_WHITE_SOLVED = WHITE_DOWN.getCubeState();
 
 
-    String cubeState;
+    protected String cubeState;
 
     int turnCount = 0;
 
