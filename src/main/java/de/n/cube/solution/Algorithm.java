@@ -11,7 +11,6 @@ import java.util.List;
 
 import static de.n.cube.language.Moves.moves;
 import static de.n.cube.mechanics.CubeStateUtil.*;
-import static de.n.cube.solution.AlgorithmUtil.crossOneMoveHelpFull;
 import static de.n.cube.solution.SolveState.cross;
 import static de.n.cube.solution.SolveState.orientationWhiteMiddle;
 
@@ -85,7 +84,7 @@ public enum Algorithm {
     crossOneMove1(cross, moves("f-")) {
         @Override
         public HelpFullResult isApplyHelpFull(Cube cube) {
-            return crossOneMoveHelpFull(cube, baseMoves, this, "...\n"//
+            return crossOneMoveHelpFull(cube, this, "...\n"//
                     + "...\n"//
                     + "...\n"//
                     + "..." + "..." + "..." + "...\n"//
@@ -107,7 +106,7 @@ public enum Algorithm {
                     + "...\n"//
                     + ".w.\n"//
                     + "...\n";
-            return crossOneMoveHelpFull(cube, baseMoves, this, variableInState, "");
+            return crossOneMoveHelpFull(cube, this, variableInState, "");
         }
     }, crossOneMove3(cross, moves("f2")) {
         @Override
@@ -121,12 +120,12 @@ public enum Algorithm {
                     + "...\n"//
                     + ".w.\n"//
                     + "...\n";
-            return crossOneMoveHelpFull(cube, baseMoves, this, variableInState, "2");
+            return crossOneMoveHelpFull(cube, this, variableInState, "2");
         }
     };
 
 
-    static final HelpFullResult NOT_HELP_FULL = new HelpFullResult();
+    private static final HelpFullResult NOT_HELP_FULL = new HelpFullResult();
 
     private static boolean nothingSolvedOnCrossYet(Cube cube, String variablesInState) {
         String cubeState = cube.getCubeState();
@@ -143,6 +142,19 @@ public enum Algorithm {
         this.solveStateToReach = solveStateToReach;
         this.baseMoves = baseMoves;
         baseMoves.setDesc(this.name());
+    }
+
+    private static HelpFullResult crossOneMoveHelpFull(Cube cube, Algorithm algorithm, String patternWithVariables, String spinDirection) {
+        String variableInState = patternWithVariables;
+        for (char front : new char[]{'f', 'l', 'b', 'r'}) {
+            if (front != 'f') {
+                variableInState = movesOnPattern(variableInState, "t4");
+            }
+            if (checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
+                return new HelpFullResult(true, moves(algorithm.name(), "" + front + spinDirection));
+            }
+        }
+        return NOT_HELP_FULL;
     }
 
     public abstract HelpFullResult isApplyHelpFull(Cube cube);

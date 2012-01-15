@@ -95,7 +95,7 @@ public class AlgorithmTest {
     }
 
     @Test
-    public void hWaa2vAaw() {
+    public void crossOneMove1() {
         Cube cube = cube("rog\n"//
                 + "b..\n"//
                 + "...\n"//
@@ -121,7 +121,7 @@ public class AlgorithmTest {
     }
 
     @Test
-    public void hWaa2vAawOtherHorizontalFronts() {
+    public void crossOneMove1OtherHorizontalFronts() {
         Cube cube = cube("rog\n"//
                 + "b..\n"//
                 + "...\n"//
@@ -138,7 +138,7 @@ public class AlgorithmTest {
     }
 
     @Test
-    public void hAaw2vAaw() {
+    public void crossOneMove2() {
         Cube cube = cube("rog\n"//
                 + "b..\n"//
                 + "...\n"//
@@ -164,7 +164,7 @@ public class AlgorithmTest {
     }
 
     @Test
-    public void whiteFromYellowFace1() {
+    public void crossOneMove3() {
         Cube cube = cube("rog\n"//
                 + "b..\n"//
                 + ".w.\n"//
@@ -190,7 +190,7 @@ public class AlgorithmTest {
     }
 
     @Test
-    public void whiteFromYellowFaceHorizontalFronts() {
+    public void crossOneMove1HorizontalFronts() {
         Cube cube = cube("rog\n"//
                 + "b..\n"//
                 + ".w.\n"//
