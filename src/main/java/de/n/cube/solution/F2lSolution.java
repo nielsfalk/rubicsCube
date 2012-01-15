@@ -67,12 +67,12 @@ class F2lSolution {
             return null;
         }
         if (orientationWhiteMiddle.isReached(cube)) {
-            return solve(cross, cube, false);
+            return solve(cross, cube);
         }
-        return solve(orientationWhiteMiddle, cube, false);
+        return solve(orientationWhiteMiddle, cube);
     }
 
-    private Moves solve(SolveState solveState, Cube cube, boolean sortAlgorithmByLength) {
+    private Moves solve(SolveState solveState, Cube cube /*, boolean sortAlgorithmByLength*/) {
         List<Algorithm> algorithms = Algorithm.forSolveState(solveState);
         for (Algorithm algorithm : algorithms) {
             Algorithm.HelpFullResult helpFullResult = algorithm.isApplyHelpFull(cube);

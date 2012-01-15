@@ -80,7 +80,7 @@ public enum Algorithm {
             return new HelpFullResult(nothingSolvedOnCrossYet(cube, variablesInState), baseMoves);
         }
     };
-    public static final HelpFullResult NOT_HELP_FULL = new HelpFullResult(false);
+    private static final HelpFullResult NOT_HELP_FULL = new HelpFullResult();
 
     private static boolean nothingSolvedOnCrossYet(Cube cube, String variablesInState) {
         String cubeState = cube.getCubeState();
@@ -115,14 +115,12 @@ public enum Algorithm {
         public final boolean value;
         public final Moves moves;
 
-        public HelpFullResult(Moves moves) {
-            this.moves = moves;
-            this.value = true;
-        }
-
-        public HelpFullResult(boolean value) {
+        /**
+         * always negative
+         */
+        private HelpFullResult() {
             this.moves = null;
-            this.value = value;
+            this.value = false;
         }
 
         public HelpFullResult(boolean value, Moves moves) {
