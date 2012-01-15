@@ -163,15 +163,9 @@ public enum Algorithm {
                     + "...\n"//
                     + ".w.\n"//
                     + "...\n";
-            for (String moves : new String[]{"fr-", "rb-", "bl-", "lf-"}) {
-                if (!moves.equals("fr-")) {
-                    variablesInState = movesOnPattern(variablesInState, "t6");
-                }
-                if (checkStateWithVariables(cube.getCubeState(), variablesInState, 'w', 'a')) {
-                    return new HelpFullResult(moves(this.name(), moves));
-                }
-            }
-            return NOT_HELP_FULL;
+            String[] moves = {"fr-", "rb-", "bl-", "lf-"};
+            char[] variables = new char[]{'w', 'a'};
+            return simpleIsApplyHelpFull(this, cube, variablesInState, moves, variables);
         }
     }, crossTwoMoves2(cross, moves("")) {
         @Override
@@ -185,15 +179,9 @@ public enum Algorithm {
                     + "...\n"//
                     + ".w.\n"//
                     + "...\n";
-            for (String moves : new String[]{"f-l", "r-f", "b-r", "l-b"}) {
-                if (!moves.equals("f-l")) {
-                    variablesInState = movesOnPattern(variablesInState, "t6");
-                }
-                if (checkStateWithVariables(cube.getCubeState(), variablesInState, 'w', 'a')) {
-                    return new HelpFullResult(moves(this.name(), moves));
-                }
-            }
-            return NOT_HELP_FULL;
+            String[] moves = {"f-l", "r-f", "b-r", "l-b"};
+            char[] variables = new char[]{'w', 'a'};
+            return simpleIsApplyHelpFull(this, cube, variablesInState, moves, variables);
         }
     }, prepareCrossTwoMoves(cross, moves("u")) {
         @Override
@@ -229,15 +217,10 @@ public enum Algorithm {
                     + "...\n"//
                     + ".w.\n"//
                     + "...\n";
-            for (String move : new String[]{"f-u", "r-u", "b-u", "l-u"}) {
-                if (!move.equals("f-u")) {
-                    variablesInState = movesOnPattern(variablesInState, "t6");
-                }
-                if (checkStateWithVariables(cube.getCubeState(), variablesInState, 'w', 'a', 'b')) {
-                    return new HelpFullResult(moves(this.name(), move));
-                }
-            }
-            return NOT_HELP_FULL;
+
+            char[] variables = new char[]{'w', 'a', 'b'};
+            String[] moves = {"f-u", "r-u", "b-u", "l-u"};
+            return simpleIsApplyHelpFull(this, cube, variablesInState, moves, variables);
         }
     }, moveOutWrongInSecondLayer2(cross, moves("fu")) {
         @Override
@@ -252,15 +235,9 @@ public enum Algorithm {
                     + ".w.\n"//
                     + "...\n";
 
-            for (String move : new String[]{"fu", "ru", "bu", "lu"}) {
-                if (!move.equals("fu")) {
-                    variablesInState = movesOnPattern(variablesInState, "t6");
-                }
-                if (checkStateWithVariables(cube.getCubeState(), variablesInState, 'w', 'a', 'b')) {
-                    return new HelpFullResult(moves(this.name(), move));
-                }
-            }
-            return NOT_HELP_FULL;
+            String[] moves = {"fu", "ru", "bu", "lu"};
+            char[] variables = new char[]{'w', 'a', 'b'};
+            return simpleIsApplyHelpFull(this, cube, variablesInState, moves, variables);
         }
     }, moveOutWrongInFirstLayer1(cross, moves("f2")) {
         @Override
@@ -274,15 +251,9 @@ public enum Algorithm {
                     + ".a.\n"//
                     + ".w.\n"//
                     + "...\n";
-            for (String move : new String[]{"f2", "r2", "b2", "l2"}) {
-                if (!move.equals("f2")) {
-                    variablesInState = movesOnPattern(variablesInState, "t6");
-                }
-                if (checkStateWithVariables(cube.getCubeState(), variablesInState, 'w', 'a')) {
-                    return new HelpFullResult(moves(this.name(), move));
-                }
-            }
-            return NOT_HELP_FULL;
+            String[] moves = {"f2", "r2", "b2", "l2"};
+            char[] variables = new char[]{'w', 'a'};
+            return simpleIsApplyHelpFull(this, cube, variablesInState, moves, variables);
         }
     }, moveOutWrongInFirstLayer2(cross, moves("f2")) {
         @Override
@@ -296,18 +267,25 @@ public enum Algorithm {
                     + ".w.\n"//
                     + ".w.\n"//
                     + "...\n";
-            for (String move : new String[]{"f2", "r2", "b2", "l2"}) {
-                if (!move.equals("f2")) {
-                    variablesInState = movesOnPattern(variablesInState, "t6");
-                }
-                if (checkStateWithVariables(cube.getCubeState(), variablesInState, 'w', 'a', 'b')) {
-                    return new HelpFullResult(moves(this.name(), move));
-                }
-            }
-            return NOT_HELP_FULL;
+            String[] moves = {"f2", "r2", "b2", "l2"};
+            char[] variables = new char[]{'w', 'a', 'b'};
+            return simpleIsApplyHelpFull(this, cube, variablesInState, moves, variables);
         }
+
+
     };
 
+    private static HelpFullResult simpleIsApplyHelpFull(Algorithm algorithm, Cube cube, String variablesInState, String[] moves, char[] variables) {
+        for (String move : moves) {
+            if (!move.equals(moves[0])) {
+                variablesInState = movesOnPattern(variablesInState, "t6");
+            }
+            if (checkStateWithVariables(cube.getCubeState(), variablesInState, variables)) {
+                return new HelpFullResult(moves(algorithm.name(), move));
+            }
+        }
+        return NOT_HELP_FULL;
+    }
 
     private static final HelpFullResult NOT_HELP_FULL = new HelpFullResult();
 
