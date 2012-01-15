@@ -11,6 +11,7 @@ import java.util.List;
 
 import static de.n.cube.language.Moves.moves;
 import static de.n.cube.mechanics.CubeStateUtil.*;
+import static de.n.cube.solution.AlgorithmUtil.crossOneMoveHelpFull;
 import static de.n.cube.solution.SolveState.cross;
 import static de.n.cube.solution.SolveState.orientationWhiteMiddle;
 
@@ -81,13 +82,10 @@ public enum Algorithm {
             return new HelpFullResult(nothingSolvedOnCrossYet, baseMoves);
         }
     },
-    /**
-     * horizontal White ? ? => vertical ? ? White
-     */
-    hWaa2vAaw(cross, moves("f-")) {
+    crossOneMove1(cross, moves("f-")) {
         @Override
         public HelpFullResult isApplyHelpFull(Cube cube) {
-            String variableInState = "...\n"//
+            return crossOneMoveHelpFull(cube, baseMoves, this, "...\n"//
                     + "...\n"//
                     + "...\n"//
                     + "..." + "..." + "..." + "...\n"//
@@ -95,25 +93,9 @@ public enum Algorithm {
                     + "..." + "..." + "..." + "...\n"//
                     + "...\n"//
                     + ".w.\n"//
-                    + "...\n";
-            if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
-                return new HelpFullResult(true, baseMoves);
-            }
-            variableInState = CubeStateUtil.movesOnPattern(variableInState, "t4");
-            if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
-                return new HelpFullResult(true, moves(this.name(), "l-"));
-            }
-            variableInState = CubeStateUtil.movesOnPattern(variableInState, "t4");
-            if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
-                return new HelpFullResult(true, moves(this.name(), "b-"));
-            }
-            variableInState = CubeStateUtil.movesOnPattern(variableInState, "t4");
-            if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
-                return new HelpFullResult(true, moves(this.name(), "r-"));
-            }
-            return NOT_HELP_FULL;
+                    + "...\n", "-");
         }
-    }, hAaw2vAaw(cross, moves("f")) {
+    }, crossOneMove2(cross, moves("f")) {
         @Override
         public HelpFullResult isApplyHelpFull(Cube cube) {
             String variableInState = "...\n"//
@@ -125,24 +107,9 @@ public enum Algorithm {
                     + "...\n"//
                     + ".w.\n"//
                     + "...\n";
-            if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
-                return new HelpFullResult(true, baseMoves);
-            }
-            variableInState = CubeStateUtil.movesOnPattern(variableInState, "t4");
-            if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
-                return new HelpFullResult(true, moves(this.name(), "l"));
-            }
-            variableInState = CubeStateUtil.movesOnPattern(variableInState, "t4");
-            if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
-                return new HelpFullResult(true, moves(this.name(), "b"));
-            }
-            variableInState = CubeStateUtil.movesOnPattern(variableInState, "t4");
-            if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
-                return new HelpFullResult(true, moves(this.name(), "r"));
-            }
-            return NOT_HELP_FULL;
+            return crossOneMoveHelpFull(cube, baseMoves, this, variableInState, "");
         }
-    }, whiteFromYellowFace1(cross, moves("f2")) {
+    }, crossOneMove3(cross, moves("f2")) {
         @Override
         public HelpFullResult isApplyHelpFull(Cube cube) {
             String variableInState = "...\n"//
@@ -154,27 +121,12 @@ public enum Algorithm {
                     + "...\n"//
                     + ".w.\n"//
                     + "...\n";
-            if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
-                return new HelpFullResult(true, baseMoves);
-            }
-            variableInState = CubeStateUtil.movesOnPattern(variableInState, "t4");
-            if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
-                return new HelpFullResult(true, moves(this.name(), "l2"));
-            }
-            variableInState = CubeStateUtil.movesOnPattern(variableInState, "t4");
-            if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
-                return new HelpFullResult(true, moves(this.name(), "b2"));
-            }
-            variableInState = CubeStateUtil.movesOnPattern(variableInState, "t4");
-            if (CubeStateUtil.checkStateWithVariables(cube.getCubeState(), variableInState, 'w', 'a')) {
-                return new HelpFullResult(true, moves(this.name(), "r2"));
-            }
-            return NOT_HELP_FULL;
+            return crossOneMoveHelpFull(cube, baseMoves, this, variableInState, "2");
         }
     };
 
 
-    private static final HelpFullResult NOT_HELP_FULL = new HelpFullResult();
+    static final HelpFullResult NOT_HELP_FULL = new HelpFullResult();
 
     private static boolean nothingSolvedOnCrossYet(Cube cube, String variablesInState) {
         String cubeState = cube.getCubeState();
